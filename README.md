@@ -1,8 +1,12 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Loo York Times
+
+A Next.js demonstration that helps people find eligible New York City public
+restrooms, rate them, and submit locations for editorial approval.
 
 ## Getting Started
 
-First, run the development server:
+Copy `.env.example` to `.env.local`, replace the placeholders with the Supabase
+project URL and publishable key, then run the development server:
 
 ```bash
 npm run dev
@@ -14,9 +18,12 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser. The
+temporary Task 03 magic-link test page is at
+[http://localhost:3000/login](http://localhost:3000/login).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Service setup decisions and the remaining external configuration are recorded in
+[`docs/service-configuration.md`](docs/service-configuration.md).
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
