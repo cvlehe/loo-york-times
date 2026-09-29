@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { type FormEvent, useState } from "react";
 
 import { createClient } from "@/lib/supabase/client";
@@ -22,9 +23,7 @@ export default function LoginPage() {
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: {
-        emailRedirectTo: callback.toString(),
-      },
+      options: { emailRedirectTo: callback.toString() },
     });
 
     setMessage(
@@ -36,22 +35,17 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-6 py-16">
-      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500">
-        The Loo York Times
-      </p>
-      <h1 className="text-3xl font-semibold tracking-tight">Sign in by email</h1>
-      <p className="mt-3 text-zinc-600">
-        Enter your email and we will send a one-time sign-in link.
+    <main id="main-content" className="narrow-page">
+      <p className="kicker">Reader access</p>
+      <h1>Sign in by email</h1>
+      <p className="dek">
+        No password needed. We&apos;ll send a one-time sign-in link to your inbox.
       </p>
 
-      <form className="mt-8 space-y-4" onSubmit={requestLink}>
-        <label className="block text-sm font-medium" htmlFor="email">
-          Email address
-        </label>
+      <form className="login-form" onSubmit={requestLink}>
+        <label htmlFor="email">Email address</label>
         <input
           autoComplete="email"
-          className="w-full rounded border border-zinc-400 px-3 py-2 text-base focus:outline-2 focus:outline-offset-2 focus:outline-black"
           id="email"
           name="email"
           onChange={(event) => setEmail(event.target.value)}
@@ -59,21 +53,13 @@ export default function LoginPage() {
           type="email"
           value={email}
         />
-        <button
-          className="w-full rounded bg-black px-4 py-2.5 font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
-          disabled={isPending}
-          type="submit"
-        >
+        <button disabled={isPending} type="submit">
           {isPending ? "Sending..." : "Email me a sign-in link"}
         </button>
       </form>
 
-      {message ? (
-        <p aria-live="polite" className="mt-5 text-sm text-zinc-700">
-          {message}
-        </p>
-      ) : null}
+      {message ? <p aria-live="polite" className="form-message">{message}</p> : null}
+      <Link className="text-link back-link" href="/">← Back to the map</Link>
     </main>
   );
 }
-

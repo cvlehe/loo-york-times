@@ -2,67 +2,105 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          src="/logo.png"
-          alt="logo"
-          width={100}
-          height={100}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-           Loo York Times! To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main id="main-content" className="site-main">
+      <section className="hero-grid" aria-labelledby="home-heading">
+        <div className="hero-copy">
+          <p className="kicker">A public-service guide to New York City</p>
+          <h1 id="home-heading">When nature calls, know where to go.</h1>
+          <p className="dek">
+            A clearer way to find eligible public restrooms across the five
+            boroughs - with practical details and reporting that holds the city
+            to account.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+          <a className="text-link" href="#restroom-map">
+            Explore the restroom map <span aria-hidden="true">↓</span>
           </a>
         </div>
-      </main>
-    </div>
+
+        <aside className="hero-brief" aria-label="About this project">
+          <Image
+            alt="A pigeon reading The Loo York Times on a toilet"
+            className="hero-mark"
+            height={144}
+            priority
+            src="/logo.png"
+            width={144}
+          />
+          <div>
+            <p className="brief-label">The brief</p>
+            <p>
+              Reliable information for a basic city need. Listings are reviewed
+              before they appear here.
+            </p>
+          </div>
+        </aside>
+      </section>
+
+      <section className="map-section" id="restroom-map" aria-labelledby="map-heading">
+        <div className="section-heading-row">
+          <div>
+            <p className="kicker">The restroom desk</p>
+            <h2 id="map-heading">Find a restroom</h2>
+          </div>
+          <p className="edition-note">Map and live listings arrive in Task 07</p>
+        </div>
+
+        <div className="map-workspace">
+          <div className="map-toolbar" aria-label="Map controls preview">
+            <label htmlFor="restroom-search">Search by name or neighborhood</label>
+            <div className="search-preview">
+              <input
+                disabled
+                id="restroom-search"
+                placeholder="Try Bryant Park or Flushing"
+                type="search"
+              />
+              <button disabled type="button">Search</button>
+            </div>
+            <p className="control-note">
+              Search and location lookup will be enabled with the interactive map.
+            </p>
+          </div>
+
+          <div className="map-preview" aria-label="Map preview">
+            <div className="map-grid" aria-hidden="true" />
+            <p className="map-status">
+              <span className="status-dot" aria-hidden="true" />
+              Map preparation in progress
+            </p>
+            <div className="map-buttons" aria-label="Map zoom controls preview">
+              <button aria-label="Zoom in (available with the map)" disabled type="button">+</button>
+              <button aria-label="Zoom out (available with the map)" disabled type="button">−</button>
+            </div>
+          </div>
+
+          <div className="listing-preview" aria-label="Restroom list preview">
+            <div className="listing-header">
+              <p className="brief-label">List view</p>
+              <span>Preview</span>
+            </div>
+            <div className="listing-empty">
+              <span className="listing-number" aria-hidden="true">00</span>
+              <div>
+                <h3>Published listings will appear here</h3>
+                <p>Only restrooms cleared through editorial review will be shown.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="news-strip" aria-labelledby="news-heading">
+        <div>
+          <p className="kicker">From the newsroom</p>
+          <h2 id="news-heading">The city&apos;s most necessary beat.</h2>
+        </div>
+        <p>
+          Follow reporting on access, maintenance, and the long road to a more
+          comfortable New York.
+        </p>
+        <a className="button-link" href="/journalism">Read the journalism</a>
+      </section>
+    </main>
   );
 }
