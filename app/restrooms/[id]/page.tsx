@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ReviewForm } from "@/app/ui/review-form";
 import { createClient } from "@/lib/supabase/server";
 
 type Review = {
@@ -30,6 +31,11 @@ type RestroomDetail = {
   additional_notes: string | null;
   website_url: string | null;
   reviews: Review[];
+};
+
+type EditableReview = {
+  comment: string | null;
+  rating: number;
 };
 
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -72,9 +78,13 @@ export default async function RestroomDetailPage({ params }: PageProps<"/restroo
 
   let restroom: RestroomDetail | null = null;
   let loadError = false;
+  let contributorId: string | null = null;
+  let editableReview: EditableReview | null = null;
+  let reviewEditorError = false;
+  let supabase: Awaited<ReturnType<typeof createClient>> | null = null;
 
   try {
-    const supabase = await createClient();
+    supabase = await createClient();
     const { data, error } = await supabase
       .from("restrooms")
       .select(`
@@ -119,6 +129,23 @@ export default async function RestroomDetailPage({ params }: PageProps<"/restroo
         <Link className="text-link back-link" href="/#restroom-map">Back to the map</Link>
       </main>
     );
+  }
+
+  if (supabase) {
+    const { data: claimsData } = await supabase.auth.getClaims();
+    contributorId = claimsData?.claims?.sub ?? null;
+
+    if (contributorId) {
+      const { data, error } = await supabase
+        .from("reviews")
+        .select("rating, comment")
+        .eq("restroom_id", restroom.id)
+        .eq("contributor_id", contributorId)
+        .maybeSingle();
+
+      if (error) reviewEditorError = true;
+      else editableReview = data as EditableReview | null;
+    }
   }
 
   const reviews = [...(restroom.reviews ?? [])].sort(
@@ -191,6 +218,21 @@ export default async function RestroomDetailPage({ params }: PageProps<"/restroo
         <section className="detail-section reviews-section" aria-labelledby="reviews-heading">
           <p className="kicker">Reader reports</p>
           <h2 id="reviews-heading">Reviews</h2>
+          <div className="review-editor" id="review-form">
+            {contributorId ? (
+              reviewEditorError ? (
+                <p className="data-error" role="status">Your review editor is temporarily unavailable. Please try again shortly.</p>
+              ) : (
+                <ReviewForm initialReview={editableReview} restroomId={restroom.id} />
+              )
+            ) : (
+              <div className="review-sign-in">
+                <h3>Visited this restroom?</h3>
+                <p>Sign in by email to leave one rating, then edit it whenever you need to.</p>
+                <Link className="button-link" href={`/login?next=${encodeURIComponent(`/restrooms/${restroom.id}#review-form`)}`}>Sign in to review</Link>
+              </div>
+            )}
+          </div>
           {reviews.length === 0 ? (
             <p className="empty-reviews">No reviews yet.</p>
           ) : (

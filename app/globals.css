@@ -555,6 +555,30 @@ button, input { font: inherit; }
 .review-heading time { color: var(--muted); font-size: 0.72rem; }
 .stars { color: #9b5b00; letter-spacing: 0.08em; }
 .review-list p { margin: 0.75rem 0 0; font-family: var(--serif); font-size: 1.05rem; line-height: 1.55; white-space: pre-wrap; }
+.review-editor { margin-bottom: 1.5rem; }
+.review-sign-in { padding: 1.25rem; border-block: 1px solid var(--rule); background: var(--paper-deep); }
+.review-sign-in h3 { margin: 0; font-family: var(--serif); font-size: 1.35rem; }
+.review-sign-in p { margin: 0.55rem 0 1rem; line-height: 1.5; }
+.review-sign-in .button-link { width: fit-content; }
+.review-form { padding: 1.25rem; border: 1px solid var(--rule); background: #fdfbf6; }
+.review-form fieldset { margin: 0 0 1.1rem; padding: 0; border: 0; }
+.review-form legend,
+.review-form > label { display: block; margin-bottom: 0.55rem; font-size: 0.78rem; font-weight: 850; }
+.review-form > label span { color: var(--muted); font-weight: 500; }
+.review-rating-options { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.35rem; }
+.review-rating-options label { position: relative; }
+.review-rating-options input { position: absolute; opacity: 0; }
+.review-rating-options .rating-choice { display: grid; min-height: 2.75rem; place-items: center; padding: 0.35rem 0.2rem; border: 1px solid #777c77; background: white; cursor: pointer; font-size: 0.78rem; font-weight: 800; text-align: center; }
+.review-rating-options input:checked + .rating-choice { border-color: var(--teal-dark); background: var(--teal-dark); color: white; }
+.review-rating-options input:focus-visible + .rating-choice { outline: 3px solid #f0a51b; outline-offset: 3px; }
+.review-form textarea { width: 100%; resize: vertical; padding: 0.8rem; border: 1px solid #777c77; border-radius: 0; background: white; color: var(--ink); font: inherit; line-height: 1.45; }
+.review-form-note { margin: 0.5rem 0 1rem; color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
+.review-form button { width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: white; cursor: pointer; font-weight: 800; }
+.review-form button:hover:not(:disabled) { background: var(--teal-dark); }
+.review-form button:disabled { cursor: wait; opacity: 0.65; }
+.review-form .form-message { margin: 0 0 1rem; padding: 0.75rem; font-size: 0.82rem; }
+.form-message-error { border-left: 4px solid #a33b22; background: #f4e4dd; color: #621c12; }
+.form-message-success { border-left: 4px solid var(--teal); background: #e2efec; }
 
 .site-footer { border-top: 1px solid var(--rule); background: var(--paper-deep); }
 

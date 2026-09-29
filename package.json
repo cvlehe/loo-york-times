@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test:import": "node --test scripts/lib/public-restrooms-import.test.mjs",
     "import:restrooms": "node scripts/import-public-restrooms.mjs",
-    "verify:permissions": "node scripts/verify-permissions.mjs"
+    "verify:permissions": "node scripts/verify-permissions.mjs",
+    "verify:reviews": "node scripts/verify-reviews.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

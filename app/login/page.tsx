@@ -4,6 +4,7 @@ import Link from "next/link";
 import { type FormEvent, useState } from "react";
 
 import { createClient } from "@/lib/supabase/client";
+import { safeNextPath } from "@/lib/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ export default function LoginPage() {
     setMessage(null);
 
     const requestedNext = new URLSearchParams(window.location.search).get("next");
-    const next = requestedNext?.startsWith("/") ? requestedNext : "/";
+    const next = safeNextPath(requestedNext);
     const callback = new URL("/auth/callback", window.location.origin);
     callback.searchParams.set("next", next);
 
