@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useEffect, useRef } from "react";
 
 import {
@@ -118,13 +119,16 @@ export function SubmissionForm() {
         </p>
 
         {state.message ? (
-          <p
+          <div
             aria-live="polite"
             className={state.status === "error" ? "form-message form-message-error" : "form-message form-message-success"}
             role={state.status === "error" ? "alert" : "status"}
           >
-            {state.message}
-          </p>
+            <p>{state.message}</p>
+            {state.status === "success" ? (
+              <Link className="text-link" href="/submissions">View My submissions →</Link>
+            ) : null}
+          </div>
         ) : null}
 
         <button disabled={pending} type="submit">

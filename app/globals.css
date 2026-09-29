@@ -610,10 +610,44 @@ button, input, textarea { font: inherit; }
 .submission-form-footer { padding-top: 1.5rem; }
 .submission-form-footer > p:first-child { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
 .submission-form-footer .form-message { max-width: none; margin-block: 1rem; padding: 0.85rem; }
+.submission-form-footer .form-message p { margin: 0 0 0.5rem; }
 .submission-form-footer button { width: 100%; padding: 0.95rem 1rem; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: white; cursor: pointer; font-weight: 800; }
 .submission-form-footer button:hover:not(:disabled) { background: var(--teal-dark); }
 .submission-form-footer button:disabled { cursor: wait; opacity: 0.65; }
 .submission-placeholder-action { width: min(100% - 2rem, 760px); max-width: 760px; margin: -5.5rem auto 5rem; }
+
+.submissions-page { max-width: 1060px; }
+.submissions-header { display: grid; gap: 2rem; padding-bottom: 2rem; border-bottom: 3px double var(--rule); }
+.submissions-header h1 { max-width: 12ch; margin: 0; font-family: var(--serif); font-size: clamp(2.8rem, 9vw, 5.8rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.95; }
+.submissions-privacy { align-self: end; padding: 1.25rem; border-block: 1px solid var(--rule); }
+.submissions-privacy p:last-child { margin: 0; font-family: var(--serif); font-size: 1.05rem; line-height: 1.5; }
+.submissions-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; padding-block: 1.5rem; border-bottom: 1px solid var(--rule); }
+.submissions-toolbar .button-link { width: auto; }
+.submissions-count { margin: 0; font-family: var(--serif); font-size: 1.1rem; }
+.submissions-count strong { font-size: 1.7rem; }
+.submissions-count-note { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; }
+.submissions-notice { max-width: 44rem; margin-block: 2.5rem; padding: 1.5rem; border-left: 5px solid var(--teal); background: var(--paper-deep); }
+.submissions-notice h2 { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 6vw, 2.8rem); font-weight: 500; letter-spacing: -0.035em; }
+.submissions-notice > p:not(.kicker) { line-height: 1.5; }
+.submission-history { margin: 0; padding: 0; list-style: none; }
+.submission-card { padding-block: 2rem; border-bottom: 1px solid #aaa99f; }
+.submission-card-header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.submission-card-label,
+.submission-decision-label { margin: 0 0 0.35rem; color: var(--muted); font-size: 0.7rem; font-weight: 850; letter-spacing: 0.09em; text-transform: uppercase; }
+.submission-card h2 { margin: 0; font-family: var(--serif); font-size: clamp(1.65rem, 5vw, 2.5rem); font-weight: 500; letter-spacing: -0.03em; }
+.submission-status { flex: none; margin: 0; padding: 0.4rem 0.6rem; border: 1px solid currentColor; font-size: 0.7rem; font-weight: 850; letter-spacing: 0.08em; text-transform: uppercase; }
+.submission-status-pending { color: #775119; background: #f5e9c9; }
+.submission-status-approved { color: #07514c; background: #dcece7; }
+.submission-status-rejected { color: #7a2619; background: #f3dfd8; }
+.submission-card-facts { display: grid; gap: 1rem; margin: 1.5rem 0; }
+.submission-card-facts div { min-width: 0; }
+.submission-card-facts dt { margin-bottom: 0.25rem; color: var(--muted); font-size: 0.68rem; font-weight: 850; letter-spacing: 0.08em; text-transform: uppercase; }
+.submission-card-facts dd { margin: 0; line-height: 1.45; overflow-wrap: anywhere; }
+.submission-decision { padding: 1rem; border-left: 4px solid var(--teal); background: var(--paper-deep); }
+.submission-decision p { margin: 0; line-height: 1.5; }
+.submission-decision .text-link { display: inline-block; margin-top: 0.65rem; }
+.submission-decision-pending { border-color: #9b6c25; }
+.submission-decision-rejected { border-color: #a33b22; }
 
 .site-footer { border-top: 1px solid var(--rule); background: var(--paper-deep); }
 
@@ -648,6 +682,8 @@ button, input, textarea { font: inherit; }
   .detail-header { grid-template-columns: minmax(0, 1.6fr) minmax(14rem, 0.55fr); gap: 4rem; }
   .detail-grid { grid-template-columns: minmax(0, 1.1fr) minmax(19rem, 0.9fr); }
   .submission-header { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.6fr); gap: 4rem; }
+  .submissions-header { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.6fr); gap: 4rem; }
+  .submission-card-facts { grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(8rem, 0.55fr)); }
   .coordinate-fields,
   .submission-field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .submission-placeholder-action { width: min(100% - 4rem, 760px); }
