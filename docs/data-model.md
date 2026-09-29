@@ -47,13 +47,10 @@ before running `db push` against the existing project.
   explanation. Pending, approved, and rejected records each enforce the fields
   appropriate to that state.
 
-## Task boundary
+## Task 05 extension
 
-All application tables have row-level security enabled without policies. This is
-intentional fail-closed behavior. Task 05 will add and test public, contributor,
-owner, and administrator policies, then execute the reconciled CSV import.
-
-The import still depends on the editorial decisions listed in
-`docs/public-restrooms-import-assessment.md`: the eligibility decision table,
-the treatment of non-operational records, the address/neighborhood enrichment
-source, and whether an immutable upstream record ID can be obtained.
+Task 05 added public, contributor, owner, and administrator policies and imported
+the supplied CSV as a reconciled, idempotent batch. All accepted source rows remain
+draft listings with eligibility pending, so the unresolved editorial decisions do
+not leak into publication state. See `docs/permissions-and-import.md` for the live
+counts, permission checks, rerun behavior, and remaining decisions.

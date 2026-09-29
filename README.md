@@ -25,6 +25,9 @@ temporary Task 03 magic-link test page is at
 Service setup decisions and the remaining external configuration are recorded in
 [`docs/service-configuration.md`](docs/service-configuration.md).
 
+Task 05 permissions, import behavior, live reconciliation, and rerun instructions
+are recorded in [`docs/permissions-and-import.md`](docs/permissions-and-import.md).
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
