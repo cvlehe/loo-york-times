@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { RestroomMap, type PublicRestroom } from "@/app/ui/restroom-map";
 import { createClient } from "@/lib/supabase/server";
@@ -47,9 +48,12 @@ export default async function Home() {
             boroughs - with practical details and reporting that holds the city
             to account.
           </p>
-          <a className="text-link" href="#restroom-map">
-            Explore the restroom map <span aria-hidden="true">↓</span>
-          </a>
+          <div className="hero-actions">
+            <a className="text-link" href="#restroom-map">
+              Explore the restroom map <span aria-hidden="true">↓</span>
+            </a>
+            <Link className="text-link" href="/submissions/new">Submit a restroom</Link>
+          </div>
         </div>
 
         <aside className="hero-brief" aria-label="About this project">
