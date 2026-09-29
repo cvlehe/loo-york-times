@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export type PublicRestroom = {
@@ -205,7 +206,7 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
         <div className="listing-header"><div><p className="brief-label">List view</p><h3 aria-live="polite" id="listing-heading">{listHeading}</h3></div><span>Map-linked</span></div>
         {restrooms.length === 0 ? <div className="listing-empty"><span className="listing-number" aria-hidden="true">00</span><div><h4>No published listings yet</h4><p>Locations appear here after editorial review confirms they meet the project’s eligibility standard.</p></div></div>
           : matchingRestrooms.length === 0 ? <div className="listing-empty"><span className="listing-number" aria-hidden="true">00</span><div><h4>No matching listings</h4><p>Try another restroom name or neighborhood, or clear the search to browse every published location.</p></div></div>
-            : <ul className="restroom-list">{matchingRestrooms.map((restroom, index) => <li id={`restroom-${restroom.id}`} key={restroom.id}><div className="listing-row"><button aria-pressed={activeId === restroom.id} className={activeId === restroom.id ? "restroom-listing restroom-listing-active" : "restroom-listing"} onClick={() => selectRestroom(restroom)} type="button"><span className="listing-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span><strong>{restroom.name}</strong><small>{restroom.address_text ?? locationLabel(restroom)}</small>{restroom.address_text ? <small>{locationLabel(restroom)}</small> : null}</span></button><a aria-label={`Get directions to ${restroom.name} in Google Maps (opens in a new tab)`} className="directions-link" href={directionsUrl(restroom)} rel="noreferrer" target="_blank">Directions <span aria-hidden="true">↗</span></a></div></li>)}</ul>}
+            : <ul className="restroom-list">{matchingRestrooms.map((restroom, index) => <li id={`restroom-${restroom.id}`} key={restroom.id}><div className="listing-row"><button aria-pressed={activeId === restroom.id} className={activeId === restroom.id ? "restroom-listing restroom-listing-active" : "restroom-listing"} onClick={() => selectRestroom(restroom)} type="button"><span className="listing-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span><strong>{restroom.name}</strong><small>{restroom.address_text ?? locationLabel(restroom)}</small>{restroom.address_text ? <small>{locationLabel(restroom)}</small> : null}</span></button><div className="listing-actions"><Link aria-label={`View details for ${restroom.name}`} href={`/restrooms/${restroom.id}`}>Details</Link><a aria-label={`Get directions to ${restroom.name} in Google Maps (opens in a new tab)`} href={directionsUrl(restroom)} rel="noreferrer" target="_blank">Directions <span aria-hidden="true">↗</span></a></div></div></li>)}</ul>}
       </section>
     </div>
   );
