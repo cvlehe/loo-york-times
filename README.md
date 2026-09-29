@@ -6,7 +6,8 @@ restrooms, rate them, and submit locations for editorial approval.
 ## Getting Started
 
 Copy `.env.example` to `.env.local`, replace the placeholders with the Supabase
-project URL and publishable key, then run the development server:
+project URL, publishable key, and browser-safe MapTiler key, then run the
+development server:
 
 ```bash
 npm run dev
@@ -27,6 +28,10 @@ Service setup decisions and the remaining external configuration are recorded in
 
 Task 05 permissions, import behavior, live reconciliation, and rerun instructions
 are recorded in [`docs/permissions-and-import.md`](docs/permissions-and-import.md).
+
+The public map reads only published listings. If the MapTiler key is absent or a
+map request fails, the accessible list remains available alongside an explicit
+map-error message.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

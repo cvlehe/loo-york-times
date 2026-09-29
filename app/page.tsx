@@ -1,6 +1,32 @@
 import Image from "next/image";
 
-export default function Home() {
+import { RestroomMap, type PublicRestroom } from "@/app/ui/restroom-map";
+import { createClient } from "@/lib/supabase/server";
+
+export default async function Home() {
+  let restrooms: PublicRestroom[] = [];
+  let listingsError = false;
+
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("restrooms")
+      .select("id, name, address_text, borough, latitude, longitude, neighborhood")
+      .eq("publication_status", "published")
+      .not("latitude", "is", null)
+      .not("longitude", "is", null)
+      .order("name");
+
+    if (error) throw error;
+    restrooms = (data ?? []).map((restroom) => ({
+      ...restroom,
+      latitude: Number(restroom.latitude),
+      longitude: Number(restroom.longitude),
+    }));
+  } catch {
+    listingsError = true;
+  }
+
   return (
     <main id="main-content" className="site-main">
       <section className="hero-grid" aria-labelledby="home-heading">
@@ -42,52 +68,12 @@ export default function Home() {
             <p className="kicker">The restroom desk</p>
             <h2 id="map-heading">Find a restroom</h2>
           </div>
-          <p className="edition-note">Map and live listings arrive in Task 07</p>
+          <p className="edition-note">Published locations only · Select a marker or a listing to keep them in sync</p>
         </div>
 
-        <div className="map-workspace">
-          <div className="map-toolbar" aria-label="Map controls preview">
-            <label htmlFor="restroom-search">Search by name or neighborhood</label>
-            <div className="search-preview">
-              <input
-                disabled
-                id="restroom-search"
-                placeholder="Try Bryant Park or Flushing"
-                type="search"
-              />
-              <button disabled type="button">Search</button>
-            </div>
-            <p className="control-note">
-              Search and location lookup will be enabled with the interactive map.
-            </p>
-          </div>
-
-          <div className="map-preview" aria-label="Map preview">
-            <div className="map-grid" aria-hidden="true" />
-            <p className="map-status">
-              <span className="status-dot" aria-hidden="true" />
-              Map preparation in progress
-            </p>
-            <div className="map-buttons" aria-label="Map zoom controls preview">
-              <button aria-label="Zoom in (available with the map)" disabled type="button">+</button>
-              <button aria-label="Zoom out (available with the map)" disabled type="button">−</button>
-            </div>
-          </div>
-
-          <div className="listing-preview" aria-label="Restroom list preview">
-            <div className="listing-header">
-              <p className="brief-label">List view</p>
-              <span>Preview</span>
-            </div>
-            <div className="listing-empty">
-              <span className="listing-number" aria-hidden="true">00</span>
-              <div>
-                <h3>Published listings will appear here</h3>
-                <p>Only restrooms cleared through editorial review will be shown.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {listingsError ? (
+          <p className="data-error" role="status">Published listings are temporarily unavailable. Please try again shortly.</p>
+        ) : <RestroomMap restrooms={restrooms} />}
       </section>
 
       <section className="news-strip" aria-labelledby="news-heading">
