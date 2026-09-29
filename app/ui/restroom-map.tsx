@@ -13,7 +13,13 @@ export type PublicRestroom = {
 };
 
 type RestroomMapProps = { restrooms: PublicRestroom[] };
-type LocationState = "idle" | "locating" | "located" | "unavailable";
+type LocationState =
+  | "idle"
+  | "locating"
+  | "located"
+  | "denied"
+  | "timed-out"
+  | "unavailable";
 
 const newYorkBounds: [[number, number], [number, number]] = [[-74.2591, 40.4774], [-73.7004, 40.9176]];
 
@@ -33,6 +39,21 @@ function findMatches(restrooms: PublicRestroom[], query: string) {
       .filter(Boolean)
       .some((value) => value?.toLocaleLowerCase().includes(normalizedQuery)),
   );
+}
+
+function locationMessage(locationState: LocationState) {
+  switch (locationState) {
+    case "located":
+      return "Your approximate location is shown on the map.";
+    case "denied":
+      return "Location permission was denied. You can still browse or search every listing.";
+    case "timed-out":
+      return "Location lookup timed out. Try again, or browse every listing without sharing your location.";
+    case "unavailable":
+      return "Your location is unavailable. You can still browse or search every listing.";
+    default:
+      return "";
+  }
 }
 
 export function RestroomMap({ restrooms }: RestroomMapProps) {
@@ -118,7 +139,7 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
 
   function updateQuery(nextQuery: string) {
     const matches = findMatches(restrooms, nextQuery);
-    if (activeId && !matches.some((restroom) => restroom.id === activeId)) {
+    if (!activeId || !matches.some((restroom) => restroom.id === activeId)) {
       setActiveId(matches[0]?.id ?? null);
     }
     setQuery(nextQuery);
@@ -131,16 +152,28 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
     }
     setLocationState("locating");
     navigator.geolocation.getCurrentPosition(async ({ coords }) => {
-      const maplibregl = await import("maplibre-gl");
-      if (!mapRef.current) return;
-      userMarkerRef.current?.remove();
-      const markerElement = document.createElement("div");
-      markerElement.className = "user-location-marker";
-      userMarkerRef.current = new maplibregl.Marker({ element: markerElement })
-        .setLngLat([coords.longitude, coords.latitude]).addTo(mapRef.current);
-      mapRef.current.flyTo({ center: [coords.longitude, coords.latitude], zoom: 14, essential: true });
-      setLocationState("located");
-    }, () => setLocationState("unavailable"), { enableHighAccuracy: false, maximumAge: 300_000, timeout: 10_000 });
+      try {
+        const maplibregl = await import("maplibre-gl");
+        if (!mapRef.current) {
+          setLocationState("unavailable");
+          return;
+        }
+        userMarkerRef.current?.remove();
+        const markerElement = document.createElement("div");
+        markerElement.className = "user-location-marker";
+        markerElement.setAttribute("aria-label", "Your approximate location");
+        userMarkerRef.current = new maplibregl.Marker({ element: markerElement })
+          .setLngLat([coords.longitude, coords.latitude]).addTo(mapRef.current);
+        mapRef.current.flyTo({ center: [coords.longitude, coords.latitude], zoom: 14, essential: true });
+        setLocationState("located");
+      } catch {
+        setLocationState("unavailable");
+      }
+    }, (error) => {
+      if (error.code === error.PERMISSION_DENIED) setLocationState("denied");
+      else if (error.code === error.TIMEOUT) setLocationState("timed-out");
+      else setLocationState("unavailable");
+    }, { enableHighAccuracy: false, maximumAge: 300_000, timeout: 10_000 });
   }
 
   const listHeading = query.trim()
@@ -156,11 +189,10 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
           {query ? <button className="clear-search" onClick={() => updateQuery("")} type="button">Clear</button> : null}
         </div>
         <div className="location-controls">
-          <button disabled={locationState === "locating"} onClick={locateUser} type="button">{locationState === "locating" ? "Locating…" : "Use my location"}</button>
-          <p aria-live="polite">
-            {locationState === "located" ? "Your approximate location is shown on the map." : null}
-            {locationState === "unavailable" ? "Location is unavailable. You can still browse or search every listing." : null}
-          </p>
+          <button disabled={mapState !== "ready" || locationState === "locating"} onClick={locateUser} type="button">
+            {locationState === "locating" ? "Locating…" : mapState === "loading" ? "Location available when map loads" : "Use my location"}
+          </button>
+          <p aria-live="polite">{locationMessage(locationState)}</p>
         </div>
       </div>
       <div className="map-canvas-wrap">
@@ -170,10 +202,10 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
         <p className="map-attribution"><a href="https://www.maptiler.com/" rel="noreferrer" target="_blank">© MapTiler</a>{" · "}<a href="https://www.openstreetmap.org/copyright" rel="noreferrer" target="_blank">© OpenStreetMap contributors</a></p>
       </div>
       <section aria-labelledby="listing-heading" className="listing-panel">
-        <div className="listing-header"><div><p className="brief-label">List view</p><h3 id="listing-heading">{listHeading}</h3></div><span>Map-linked</span></div>
+        <div className="listing-header"><div><p className="brief-label">List view</p><h3 aria-live="polite" id="listing-heading">{listHeading}</h3></div><span>Map-linked</span></div>
         {restrooms.length === 0 ? <div className="listing-empty"><span className="listing-number" aria-hidden="true">00</span><div><h4>No published listings yet</h4><p>Locations appear here after editorial review confirms they meet the project’s eligibility standard.</p></div></div>
           : matchingRestrooms.length === 0 ? <div className="listing-empty"><span className="listing-number" aria-hidden="true">00</span><div><h4>No matching listings</h4><p>Try another restroom name or neighborhood, or clear the search to browse every published location.</p></div></div>
-            : <ul className="restroom-list">{matchingRestrooms.map((restroom, index) => <li id={`restroom-${restroom.id}`} key={restroom.id}><div className="listing-row"><button aria-pressed={activeId === restroom.id} className={activeId === restroom.id ? "restroom-listing restroom-listing-active" : "restroom-listing"} onClick={() => selectRestroom(restroom)} type="button"><span className="listing-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span><strong>{restroom.name}</strong><small>{restroom.address_text ?? locationLabel(restroom)}</small>{restroom.address_text ? <small>{locationLabel(restroom)}</small> : null}</span></button><a className="directions-link" href={directionsUrl(restroom)} rel="noreferrer" target="_blank">Directions</a></div></li>)}</ul>}
+            : <ul className="restroom-list">{matchingRestrooms.map((restroom, index) => <li id={`restroom-${restroom.id}`} key={restroom.id}><div className="listing-row"><button aria-pressed={activeId === restroom.id} className={activeId === restroom.id ? "restroom-listing restroom-listing-active" : "restroom-listing"} onClick={() => selectRestroom(restroom)} type="button"><span className="listing-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span><strong>{restroom.name}</strong><small>{restroom.address_text ?? locationLabel(restroom)}</small>{restroom.address_text ? <small>{locationLabel(restroom)}</small> : null}</span></button><a aria-label={`Get directions to ${restroom.name} in Google Maps (opens in a new tab)`} className="directions-link" href={directionsUrl(restroom)} rel="noreferrer" target="_blank">Directions <span aria-hidden="true">↗</span></a></div></li>)}</ul>}
       </section>
     </div>
   );
