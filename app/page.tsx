@@ -9,16 +9,25 @@ export default async function Home() {
 
   try {
     const supabase = await createClient();
-    const { data, error } = await supabase
-      .from("restrooms")
-      .select("id, name, address_text, borough, latitude, longitude, neighborhood")
-      .eq("publication_status", "published")
-      .not("latitude", "is", null)
-      .not("longitude", "is", null)
-      .order("name");
+    const pageSize = 1_000;
+    const records = [];
 
-    if (error) throw error;
-    restrooms = (data ?? []).map((restroom) => ({
+    for (let start = 0; ; start += pageSize) {
+      const { data, error } = await supabase
+        .from("restrooms")
+        .select("id, name, address_text, borough, latitude, longitude, neighborhood")
+        .eq("publication_status", "published")
+        .not("latitude", "is", null)
+        .not("longitude", "is", null)
+        .order("name")
+        .range(start, start + pageSize - 1);
+
+      if (error) throw error;
+      records.push(...(data ?? []));
+      if (!data || data.length < pageSize) break;
+    }
+
+    restrooms = records.map((restroom) => ({
       ...restroom,
       latitude: Number(restroom.latitude),
       longitude: Number(restroom.longitude),

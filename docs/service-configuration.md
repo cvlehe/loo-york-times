@@ -29,15 +29,16 @@ verified sender under `reaginvonlehe.com`. The sender address is
 `login@reaginvonlehe.com`, with sender name `The Loo York Times`.
 
 The required DKIM, return-path, and sending CNAME records were added in
-Squarespace and confirmed in public DNS on September 28, 2026. Resend may show
-the domain as pending until its verifier refreshes.
+Squarespace and confirmed in public DNS on September 28, 2026. Resend marked
+the domain verified on September 28, 2026.
 
-The first local magic-link test reached Supabase successfully, but Resend
-rejected delivery with SMTP status 550 while the domain remained pending. Retry
-the test after Resend marks the domain verified.
+On September 29, 2026, magic-link delivery and callback redirects were verified
+against both `http://localhost:3000` and `https://loo-york-times.vercel.app`.
+Each callback established a session and returned to the matching application
+origin. Gmail classified both test messages as spam, so inbox placement remains
+a deliverability follow-up even though delivery and authentication succeeded.
 
-After the domain is verified, configure Supabase Authentication > Emails > SMTP
-Settings with:
+Supabase Authentication > Emails > SMTP Settings is configured with:
 
 - Host: `smtp.resend.com`
 - Port: `465`
@@ -95,9 +96,9 @@ Sources:
 - [x] Local public environment variables configured without server secrets.
 - [x] Current service limits and hosting suitability checked.
 - [x] Resend account connected.
-- [ ] `reaginvonlehe.com` sending domain verified.
+- [x] `reaginvonlehe.com` sending domain verified.
 - [x] Sender address selected (`login@reaginvonlehe.com`).
 - [x] Sending-only Resend credential created and stored in Supabase SMTP.
 - [x] Public Supabase variables added to Vercel Production.
-- [ ] Non-admin magic-link delivery and redirect verified locally.
-- [ ] Non-admin magic-link delivery and redirect verified on the deployed URL.
+- [x] Non-admin magic-link delivery and redirect verified locally.
+- [x] Non-admin magic-link delivery and redirect verified on the deployed URL.
