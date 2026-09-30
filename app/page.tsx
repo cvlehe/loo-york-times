@@ -98,7 +98,7 @@ export default async function Home() {
           Follow reporting on access, maintenance, and the long road to a more
           comfortable New York.
         </p>
-        <a className="button-link" href="/journalism">Read the journalism</a>
+        <Link className="button-link" href="/journalism">Read the journalism</Link>
       </section>
     </main>
   );

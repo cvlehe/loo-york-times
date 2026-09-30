@@ -89,6 +89,7 @@ export default async function AdminPage() {
       <nav className="admin-section-nav" aria-label="Administrator sections">
         <a href="#review-queue">Review queue</a>
         <a href="#listing-maintenance">Listing maintenance</a>
+        <Link href="/admin/articles/new">Add article</Link>
       </nav>
 
       <section id="review-queue" aria-labelledby="review-queue-heading">

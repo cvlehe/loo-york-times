@@ -711,6 +711,68 @@ button, input, textarea { font: inherit; }
 .admin-remove-review:disabled { cursor: wait; opacity: 0.65; }
 .admin-review-removal-form .form-message { margin: 0; }
 
+.journalism-page { max-width: 1060px; }
+.journalism-header { display: grid; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 3px double var(--rule); }
+.journalism-header h1 { max-width: 12ch; margin: 0; font-family: var(--serif); font-size: clamp(2.8rem, 9vw, 5.8rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.95; }
+.sample-disclosure { align-self: end; padding: 1.25rem; border: 1px solid var(--rule); border-top: 5px solid var(--teal); background: var(--paper-deep); }
+.sample-disclosure p:last-child { margin: 0; font-family: var(--serif); font-size: 1rem; line-height: 1.5; }
+.sample-disclosure-label { margin: 0 0 0.55rem; color: var(--teal-dark); font-size: 0.7rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; }
+.article-index { padding-top: 2.25rem; }
+.editorial-articles { padding-top: 2.25rem; }
+.editorial-articles-empty { margin: 0; padding: 1.5rem 0; border-bottom: 1px solid #aaa99f; color: var(--muted); font-family: var(--serif); font-size: 1.05rem; font-style: italic; }
+.editorial-article-list { display: grid; gap: 1px; margin: 0; padding: 0; background: #aaa99f; list-style: none; }
+.editorial-article-list li { min-width: 0; background: var(--paper); }
+.editorial-article-card { display: grid; height: 100%; padding: 1.5rem 0; }
+.editorial-article-card img { width: 100%; aspect-ratio: 16 / 9; margin-bottom: 1rem; border: 1px solid #aaa99f; object-fit: cover; }
+.editorial-article-card h3 { max-width: 26ch; margin: 0 0 1.1rem; font-family: var(--serif); font-size: clamp(1.65rem, 5vw, 2.5rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.04; }
+.editorial-article-card h3 a { text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+.editorial-article-card h3 a:hover { color: var(--teal-dark); text-decoration-color: currentColor; }
+.article-index-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 0.5rem 1.5rem; padding-bottom: 0.85rem; border-bottom: 2px solid var(--rule); }
+.article-index-heading h2 { margin: 0; font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 500; letter-spacing: -0.035em; }
+.article-index-heading p { margin: 0; color: var(--muted); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; }
+.article-card-list { margin: 0; padding: 0; list-style: none; }
+.article-card { display: grid; gap: 1rem; padding-block: 1.75rem; border-bottom: 1px solid #aaa99f; }
+.article-card-number { margin: 0; color: var(--teal-dark); font-family: var(--font-geist-mono), monospace; font-size: 0.76rem; font-weight: 800; }
+.article-section { margin: 0 0 0.5rem; color: var(--teal-dark); font-size: 0.72rem; font-weight: 900; letter-spacing: 0.11em; text-transform: uppercase; }
+.article-card h3 { max-width: 26ch; margin: 0; font-family: var(--serif); font-size: clamp(1.75rem, 5vw, 2.8rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.03; }
+.article-card h3 a { text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+.article-card h3 a:hover { color: var(--teal-dark); text-decoration-color: currentColor; }
+.article-card-dek { max-width: 62ch; margin: 0.8rem 0; color: #3e4441; font-family: var(--serif); font-size: 1.05rem; line-height: 1.5; }
+.article-card-meta { margin: 0; color: var(--muted); font-size: 0.72rem; }
+.article-read-link { align-self: end; color: var(--teal-dark); font-size: 0.78rem; font-weight: 850; text-decoration-thickness: 2px; text-underline-offset: 0.25rem; }
+
+.article-page { max-width: 900px; }
+.article-header { max-width: 800px; padding-bottom: 2rem; border-bottom: 3px double var(--rule); }
+.article-header h1 { max-width: 15ch; margin: 0; font-family: var(--serif); font-size: clamp(2.8rem, 9vw, 5.6rem); font-weight: 500; letter-spacing: -0.055em; line-height: 0.94; }
+.article-dek { max-width: 58ch; margin: 1.25rem 0; color: #3e4441; font-family: var(--serif); font-size: clamp(1.1rem, 2.5vw, 1.35rem); line-height: 1.5; }
+.article-byline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.35rem 1.5rem; padding-top: 1rem; border-top: 1px solid #aaa99f; font-size: 0.76rem; }
+.article-byline p { margin: 0; }
+.article-byline p:first-child { font-weight: 800; }
+.article-byline p:last-child { color: var(--muted); }
+.article-demo-banner { display: grid; gap: 0.35rem; max-width: 760px; margin-block: 1.5rem 2.75rem; padding: 1rem 1.15rem; border-left: 5px solid #a85d00; background: #f5e9c9; color: #563500; line-height: 1.4; }
+.article-demo-banner strong { font-size: 0.82rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.article-demo-banner span { font-family: var(--serif); }
+.article-body { max-width: 680px; margin-inline: auto; }
+.article-body p { margin: 0 0 1.35rem; font-family: var(--serif); font-size: clamp(1.08rem, 2vw, 1.22rem); line-height: 1.72; }
+.article-body > div:first-child > p:first-child::first-letter { float: left; margin: 0.08em 0.09em 0 0; color: var(--teal-dark); font-family: var(--serif); font-size: 4.2em; line-height: 0.77; }
+.article-body blockquote { margin: 2.25rem 0; padding: 1.25rem 0; border-block: 3px double var(--rule); color: var(--teal-dark); font-family: var(--serif); font-size: clamp(1.55rem, 5vw, 2.35rem); font-style: italic; line-height: 1.16; }
+.article-footer { max-width: 680px; margin: 3rem auto 0; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+.article-footer > p:nth-child(2) { margin: 0 0 1rem; color: var(--muted); font-family: var(--serif); line-height: 1.5; }
+
+.admin-article-page { max-width: 1000px; }
+.admin-article-header { display: grid; gap: 2rem; padding-bottom: 2rem; border-bottom: 3px double var(--rule); }
+.admin-article-header h1 { max-width: 12ch; margin: 0; font-family: var(--serif); font-size: clamp(2.8rem, 9vw, 5.8rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.95; }
+.admin-article-form { max-width: 760px; margin-top: 2.5rem; padding: 1.5rem; border: 1px solid var(--rule); background: #fdfbf6; }
+.admin-article-form label { display: block; margin: 1.1rem 0 0.5rem; font-size: 0.78rem; font-weight: 850; }
+.admin-article-form label:first-child { margin-top: 0; }
+.admin-article-form label span { color: var(--muted); font-weight: 500; }
+.admin-article-form input { width: 100%; padding: 0.8rem; border: 1px solid #777c77; border-radius: 0; background: white; color: var(--ink); line-height: 1.45; }
+.admin-article-form .form-message { max-width: none; margin: 1.25rem 0; padding: 0.85rem; }
+.admin-article-form .form-message p { margin: 0 0 0.5rem; }
+.admin-article-form button { width: 100%; margin-top: 1.5rem; padding: 0.9rem 1rem; border: 1px solid var(--ink); border-radius: 0; background: var(--teal-dark); color: white; cursor: pointer; font-weight: 850; }
+.admin-article-form button:hover:not(:disabled) { background: var(--teal); }
+.admin-article-form button:disabled { cursor: wait; opacity: 0.65; }
+
 .site-footer { border-top: 1px solid var(--rule); background: var(--paper-deep); }
 
 .footer-inner {
@@ -755,6 +817,12 @@ button, input, textarea { font: inherit; }
   .admin-moderation-list .review-heading,
   .admin-moderation-list > li > p { grid-column: 1; }
   .admin-review-removal-form { grid-column: 2; grid-row: 1 / span 2; justify-items: end; }
+  .journalism-header { grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.65fr); gap: 4rem; }
+  .article-card { grid-template-columns: 2.5rem minmax(0, 1fr) auto; gap: 1.5rem; }
+  .editorial-article-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .editorial-article-list li:nth-child(odd) { padding-right: 1.5rem; }
+  .editorial-article-list li:nth-child(even) { padding-left: 1.5rem; }
+  .admin-article-header { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.6fr); gap: 4rem; }
   .submission-card-facts { grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(8rem, 0.55fr)); }
   .coordinate-fields,
   .submission-field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

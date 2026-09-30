@@ -54,6 +54,17 @@ This verification temporarily updates one published listing and creates two
 test users plus one review. It restores the listing and removes all temporary
 records before exiting.
 
+Task 15 adds static demonstration stories plus administrator-entered article
+links. Apply `supabase/migrations/20260930120000_create_articles.sql`, then use
+`/admin/articles/new` to add a required title and article URL with an optional
+public image URL. Article bodies remain at their supplied URLs; the app does not
+include an article editor. Verify public reads, administrator creation, ordinary
+user denial, and optional-image behavior against the configured project with:
+
+```bash
+npm run verify:articles
+```
+
 The public map reads only published listings. If the MapTiler key is absent or a
 map request fails, the accessible list remains available alongside an explicit
 map-error message.

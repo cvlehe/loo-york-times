@@ -12,7 +12,8 @@
     "verify:permissions": "node scripts/verify-permissions.mjs",
     "verify:reviews": "node scripts/verify-reviews.mjs",
     "verify:admin-review": "node scripts/verify-admin-review.mjs",
-    "verify:maintenance": "node scripts/verify-maintenance.mjs"
+    "verify:maintenance": "node scripts/verify-maintenance.mjs",
+    "verify:articles": "node scripts/verify-articles.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

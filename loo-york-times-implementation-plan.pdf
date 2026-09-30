@@ -11,7 +11,7 @@ endobj
 <<
 /Type /Pages
 /Count 6
-/Kids [ 4 0 R 11 0 R 14 0 R 17 0 R 20 0 R 23 0 R ]
+/Kids [ 4 0 R 11 0 R 14 0 R 17 0 R 20 0 R 25 0 R ]
 >>
 endobj
 3 0 obj
@@ -831,211 +831,7 @@ endobj
 /Contents 21 0 R
 /MediaBox [ 0 0 612 792 ]
 /Resources <<
-/Font <<
-/F1 6 0 R
-/F1-0 22 0 R
-/F2 8 0 R
-/F3 9 0 R
-/F4 10 0 R
->>
-/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
->>
-/Rotate 0
-/Trans <<
->>
-/Type /Page
-/Annots [ ]
-/Parent 2 0 R
->>
-endobj
-21 0 obj
-<<
-/Length 4814
->>
-stream
-q
-1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
-.788235 .827451 .815686 RG
-n 45 43 m 567 43 l S
-BT /F1 8 Tf 9.6 TL ET
-.329412 .384314 .372549 rg
-BT 1 0 0 1 45 29 Tm (THE LOO YORK TIMES  /  APPROVED DEMONSTRATION SCOPE) Tj T* ET
-BT 1 0 0 1 551.432 29 Tm (5 / 5) Tj T* ET
-q
-1 0 0 1 51 734 cm
-q
-.145098 .454902 .423529 rg
-BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (THE LOO YORK TIMES / IMPLEMENTATION PLAN) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 689 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 3 Tm /F3 30 Tf 33 TL (Validate and deliver) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 658 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 5 Tm /F1 11 Tf 16 TL (Tasks 15-18 / Demonstration content and delivery) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 629 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 3 Tm /F2 12 Tf 15 TL (15. Create the journalism demonstration pages) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 596 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 18 Tm /F1 10 Tf 14 TL (Build an article index and simple article-detail pages using static sample content. Label samples clearly as) Tj T* (demonstration material. Use the newspaper-inspired identity without adding an article editor.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 577 cm
-q
-BT 1 0 0 1 0 4 Tm 13 TL /F2 9 Tf .219608 .360784 .337255 rg (Complete when:) Tj /F1 9 Tf ( Readers can open sample articles on mobile and desktop and cannot mistake them for published reporting.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 549 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 3 Tm /F2 12 Tf 15 TL (16. Create the city-progress demonstration page) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 502 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 32 Tm /F1 10 Tf 14 TL (Render a line chart with clearly labeled illustrative historical counts and the proposal's stated goal of 2,100) Tj T* (restrooms by 2035. Provide a readable text/table equivalent. Keep fixtures independent of restroom inventory and) Tj T* (explain that figures are samples, not verified city statistics.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 483 cm
-q
-BT 1 0 0 1 0 4 Tm 13 TL /F2 9 Tf .219608 .360784 .337255 rg (Complete when:) Tj /F1 9 Tf ( The chart and its accessible equivalent agree; sample labeling and the target are clear at all screen sizes.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 455 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 3 Tm /F2 12 Tf 15 TL (17. Verify the complete working demo) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 394 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 46 Tm /F1 10 Tf 14 TL -0.060769 Tw (Run appropriate lint/build checks and focused tests for permissions, one-review uniqueness, rating aggregates, and) Tj T* 0 Tw (approval retry behavior. Exercise login, reviews, submissions, approval/rejection, duplicate handling, and admin) Tj T* (removal end to end. Check keyboard navigation, screen-reader labels, responsive layouts, and unavailable) Tj T* (location/map states.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 362 cm
-q
-BT 1 0 0 1 0 17 Tm 13 TL /F2 9 Tf .219608 .360784 .337255 rg (Complete when:) Tj /F1 9 Tf ( All agreed flows pass with persisted data across sessions, including separate admin and ordinary-user) Tj T* (accounts.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 334 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 3 Tm /F2 12 Tf 15 TL (18. Deploy and hand over) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 287 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 32 Tm /F1 10 Tf 14 TL (Deploy to the selected Vercel plan, configure production secrets and authentication redirects, and verify login email) Tj T* (on the deployed URL. Give both owners admin access. Document local setup, import execution, deployment,) Tj T* (service limits, and the short editorial workflow.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 268 cm
-q
-BT 1 0 0 1 0 4 Tm 13 TL /F2 9 Tf .219608 .360784 .337255 rg (Complete when:) Tj /F1 9 Tf ( The deployed demo passes the acceptance checklist below and Reagin can carry out routine editorial tasks.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 240 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 3 Tm /F2 12 Tf 15 TL (Final acceptance checklist) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 151 cm
-q
-BT 1 0 0 1 0 74 Tm 14 TL /F1 10 Tf 0 0 0 rg (1. Supplied CSV imported and checked.) Tj  T* (2. Map/list search and directions work.) Tj  T* (3. Anyone can log in by email and create or edit a rating.) Tj  T* (4. Submissions move through approval or rejection with visible status.) Tj  T* (5. Both admins can maintain listings and remove reviews.) Tj  T* (6. Clearly labeled sample journalism and progress pages work on desktop and mobile.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 123 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 3 Tm /F2 12 Tf 15 TL (Pending inputs) Tj T* ET
-Q
-Q
-q
-1 0 0 1 51 76 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 32 Tm /F1 10 Tf 14 TL (CSV file and its field mapping; service access and configuration; domain DNS access for the login sender; Charlie's) Tj T* (and Reagin's admin account emails. Resolve these during implementation. No deadline, spending commitment, or) Tj T* (success-metrics target was set.) Tj T* ET
-Q
-Q
- 
-
-Q
-
-q
-0.0 0.0 612 792 re
-W
-n
-1 0 0 1 0 0 cm
-BT
-/F1-0 12 Tf
-14.4 TL
-ET
-1 1 1 rg
-n
-538 18 34 21 re
-f*
-0.329412 0.384314 0.372549 rg
-BT
-/F1-0 8 Tf
-9.6 TL
-ET
-BT
-1 0 0 1 551.432 29 Tm
-(5 \057 6) Tj
-T*
-ET
-Q
-
-
-endstream
-endobj
-22 0 obj
-<<
-/BaseFont /Helvetica
-/Encoding /WinAnsiEncoding
-/Name /F1
-/Subtype /Type1
-/Type /Font
->>
-endobj
-23 0 obj
-<<
-/Contents 24 0 R
-/MediaBox [ 0 0 612 792 ]
-/Resources <<
-/Font 25 0 R
+/Font 22 0 R
 /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
 >>
 /Rotate 0
@@ -1045,23 +841,22 @@ endobj
 /Parent 2 0 R
 >>
 endobj
-24 0 obj
+21 0 obj
 <<
 /Filter [ /ASCII85Decode /FlateDecode ]
-/Length 1517
+/Length 2624
 >>
 stream
-Gat=*?$#!b&:Dg-R)cfhnD[7%p>p<6Ft^6HUk3B_mSVU<[+I,[a`.1TCIr,*8D(&?P/8hUT'>M(BdohYr^-?`e3nfLo\jj^@79pS_B_Z#^S=AL'b!U--r)3.7DgA[E=LB5PgSNXX-!$VP*2&mQtf7"TtRF=IMKfK3'j>_*[Pfni&ZhFA5$`\eYO/:/E7l=P2L',iBate9R0@Ijo8$<DDn8>B9-CK^R\-^6m%5f+!)J9h^1:(1RZPVkP=.\IQP0>q5;o`jEJb];uXg?a>=?Y,`[n)1IT>[<X)uq%`T_#&mu[ZFb4q7-aXJF*@HJIoF`bn)90QeGX'RBo\j[CS_WBLjhopIrCQ:*MfMK*;`q:Pi`BeZSnoCW4EI:->a[I9<:WZJ\2laUg\!:CR,]<84]W>FbY2q'*!>DICEj`p0I%K-]Omm!`b,ZV$1f?6oMR8R=_p7B&rm(*Xgb=`EFR8boR.c((X7H:X]WDT]Y);sl>d;e(TJB!0&NedEG`XO),C)%J\JW>7E)VL9>U9=#[a[1V.sbFR[&ta.F)nc26u4W*Y`kE2!HTm"+'#i_=od9ptWJ(2uJ_biAY+^V`eLpUmpWAj!S<$=@l`U7tf80ccZO'V-@CC.lK_s8989[eK8M^DV9X+F4SG%)Is_G,rQ*3Q]V\4LICZLCYZrP?*]o7buU?l7N)C>kUYh#:aCqC'9H+*[]"H8^=XnX<p1Zf:a:8CLmn&g+ZHd0RXIF]3:EfcqTF[M04SUmiXDG%(.h'5IqjHU#1$K+i/OEnB,dfJN!.C`<^E$^)A8UPIRkkH*UkHsB*/QeS.12tCIcs:dM#XZI)+4L&'LjTXE19g0)q^r,Z9^M5a0'XJ>r]h=L!#`GtffDH\D\u3rKUOiJ=(Fd(#>uqqe8!(A;N@EE_;VAO=!XX."Y9YU/1-blN5k]G-5>#21r/WX'UH8tjk7>[j7Y)F183/l(7VB0@:1[SD"?jKc!F6$;B`]sSa%>%f[1S+k3O1A!1\P;MG.=YE$@2""3tLpA)8;LE?Yirt<3!=+q0USW+-5,4f'$8A`$X6S',7;FMrSojtr>No*gqY8lSC%U:%`g^6i_/=$uJ)^lReVUtAo4!?t^"XKiYk-ki=VkAN-:4Kc$;7(-eDr`3gHm_#h;$=<L-#b>7i,<L"r$iiI!u)Km^BPP3;TATSh)bd*!oo[cKkjH53OAX>%2Bp/AcSnrLemo2i5A<1KfmBjuoYRnJsF9Hd,';.GSF1<KCl<7Em<s%du9dGNMS;_ioBs:BLA$04(:GaHM$uV4YBH?C5la)XnnS4!k[N]5Q4&)W-T'*]Z>s5^,Gi%g-1IKd5J:UGj759rk(4C(%%TP]\9ePZW'thha-0h<=6i'6b@e(X:O"Ah-OJlu;ToqP'+E_u+1R^^W;qT-!j4*L1$reH(FHK.RL<?oKf@>"_a4DFs;ZjElm2`,I+.[@:4k^rJm]M2%]+"7apYdF4Xi]Y"AngL;80M7BqaE'>gr_o/tBrV#>u_R8ZnDn>ceSKNC3~>
+Gau0DgJZft&q/pno$-M*/TgC'nq:jlehQ<md,Tq1XHnb316P84Or?,`^F-(XVAm_Z)\>C[O@iMu3I11k+q!iR\_h[$oPmW]^I8jU1r#n9%8rXEV3C^]&C/.+2PqT+P?Amc8nPWcYFYr.[lb(^\6k:E;875h@dt_3d_)=Qq7f_hlhNR>p\aRmRX[=\\Y;IfEdI9KjRhMLIQ[XNIRY,\O3dekoC"O9Va!5ai`Sl>QmPZcfj'=(@nOT\@fqlK)tM2Da0W^Ts%S`X&?R3T(KAIRXej]3CN)KHVTtqrQp&"?f^Cd9p;U!pNM7k,q(+%%gX_0]l'cWu\$Bn\&%d1BB:O`@Zrmr'(#!X?3CC$*4rMJf[4=i+F_>H6CF^C<D,_aGdV`4X@rH"l/=YVB]YaW^[kHH#-V]2,`\t'CZQO>2Llrn&f]<!lSLP#cJ:qW:?:n+<+b.(r=B.5gd6AH_Z5'D3(/edF]d2@LlC=qp$i>Gq&690;hGG^;ZBX"tmWpng2[Y0c9O^KK/aZUFN_uMZkd^*t'pYdh]#IKm-s^V@HNbKR(gF!Yq7TeqM?FgmUJhB[[AkfAM#P'blE8c62ght\8QFCoTJLjdYh#cMG_aQSd53PLOGjF4EfiA&GBmQOaP+6*N4bHGeiCA-%1DAqlSDhi>MFs'RZXUej31F*c;j8&8"QS][t=k]U=efe>3Ot+A>*1O*,K'C5PTM[Mg1,Rn@49dEKgJ7aX#0[)6W"=1//kLJl0.r"\?Mj+pqoj$Y1TSV,?;0o1="P!SuLqXT(_U;A@P]b$@tX4ljAegN)L-]hmfeaS)L]NVaZu^g!fQOE9F`<4T@oh#\a++ZMqLg9AUf)[Pf--[3$3-(j=/#7DR[fT<;Jj5Te.5(N%W+?Tg\KXh2>V&:fsGqQ5F-A0/[mU=K"L(Z6mnpDC9G=Wk^-:X!B9>dVhk(T^I+jJGCP.ckl4>/of$^VK68%EV=@G(uRp9B$JgSuedDrk0N$@1/kjf#IiGBI\,db-RheS$JU&(ZjI?<h6Hdao0T6t(nY@hYsp98a5cn&KAnTF7OH-lH+EU(@]CZ'@Q._q+e.289nQOquCd;DrX!I^U9*F62,[)rPt21Rs!mCY[@Xf:VuoPX9AlM\bb6q:5@W1pR@q4lA(AoE]TA?p3\qe"6g?lndak_N/F)])#*PprW)S=HW4*O<\p?ESMS+eS^%2!*\r,W)o<Pa/49J>%*^0X5LBY1Ee$</BR%!%:u^AP)h_RS!lmC=l6(LUId`.36ZT\-oRZ3F2Q"<>s)C!8NI=/='!0o*V-K<iA:sNFJm^[9RF9gD)5P@r5OBe>3FfW`"=]0T$sJ9cWO4#^nY[*130MDFLkZSk[]\F*"^^2-X_eL/?q3Q@C(=YnZg.U^rr7TO=RS:g&uNg;jpsb`KY\JC@'uh`nRq+g`JSiIV@edR59mD:sh-H$5@rjE"])K^p>TcW-Ih7$f%M.@QcS@L5Y1%k_gZN2tCj[KdisTI7rNpnu*EDf.B,;fOJV7(rpGiME=YAG8X6iCWHmdl-81`cJ;f^Q"W9s4BH2fm.0mgKm&DiE(,G5Qho9bQYiojODYF]^_97@JH@YHO/s=aU$B;WS9V<E&]Vpt+'a%ToV@W88LRocT'oTnGf=*]CMatT'K;l^>e"gOm#(39!KOK;Ggf.2*tLJR[9N9fS7;g/a<ec:.=`ZL9@(i;7Z,J7),#Oa^;Ga:01/Z`\,^"BKN:9%C[KfnPmYWj7I7\lh</8UB7tAQ0qdDAS.!S.ijNHme*"hM.KY>sYF&$%SfgPVFq)l(Z#2ihOa5P[RbP2iMATK%X.6_q!]qLZQWMMGG3*%bf$c1$*SE0_Sq27TL8oH7/"=m>mlIsO09\@89e2l_4Uj`m[9tC"m=Gh1aPga=Q4!fG?o;QcMtP$%UFd!irtitEIL)N-2$:j<aMe.Hs/&oms2s8tJKE'&L?L.L*cZ.o/Z;2<PSuWZO!7mg02Qcl?$-Ti(fC6RorWuZ/(qLP.C.TZA9dFl!/Mt#*:k4@`W;Wfk0R\i64;j)0BQPK0r$af^=:BsQMu/63tmR2opo]W$E0Z<6+#"#I@\!+HA.?=bckRp.<[&<B2$X7f1k$R[QJ+<Cq;JNVDXD8.$<V+e%+/s:%S(,B!&_Ij*oY6Q[4c`mtG@%oT.4]N[4R"LsXa*MeY]l6L@@ukmKLBQ'WC1ce\ud4F95YAU7Xp2=e*0Ru,@=q-_kHKY'CuqJ#]#/n+*nVdc%_\!'N)7'Z>la,S7Igu<]ch#/@9Zo])YQOUqF4FJ1.Nl#lT"th#R=YctfJPuE8!I29Qr:),6KPC7.pjg3P'S\g8IH]%tI@;#LGon%s1VH>!''+iUbuI$$c`W!k4;2ZN]ah;b^cm@#"pC4h@!?.jn"(W0U^%8o:MPt6QdY0Id=oLI:is^rLr%8T_c[PtR0H+a971:+2LQi*:I0SW<MDE=Dr5``aAIXW"7tk5$Jl,UYjJ1i4b;0$6Y&lfdhj7G'i@`jo(P;=^2E[[9)8(#)H0)X3!+`lc]YI)Jg?j\6_qb6.Dds5L%,pD-N$m@)U`.WI1-XqC&I&4C-!V$^::[8s*!t$5+e@:T3]\prFbGs:ZiNA]AJc1!(nUM:UBSqEJA>M>>&]!J)'modf~>
 endstream
 endobj
-25 0 obj
+22 0 obj
 <<
-/F1 26 0 R
-/F2 27 0 R
-/F3 28 0 R
+/F1 23 0 R
+/F2 24 0 R
 >>
 endobj
-26 0 obj
+23 0 obj
 <<
 /BaseFont /Helvetica
 /Encoding /WinAnsiEncoding
@@ -1070,7 +865,56 @@ endobj
 /Type /Font
 >>
 endobj
+24 0 obj
+<<
+/BaseFont /Times-Roman
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+25 0 obj
+<<
+/Contents 26 0 R
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font 27 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+26 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ]
+/Length 1517
+>>
+stream
+Gat=*?$#!b&:Dg-R)cfhnD[7%p>p<6Ft^6HUk3B_mSVU<[+I,[a`.1TCIr,*8D(&?P/8hUT'>M(BdohYr^-?`e3nfLo\jj^@79pS_B_Z#^S=AL'b!U--r)3.7DgA[E=LB5PgSNXX-!$VP*2&mQtf7"TtRF=IMKfK3'j>_*[Pfni&ZhFA5$`\eYO/:/E7l=P2L',iBate9R0@Ijo8$<DDn8>B9-CK^R\-^6m%5f+!)J9h^1:(1RZPVkP=.\IQP0>q5;o`jEJb];uXg?a>=?Y,`[n)1IT>[<X)uq%`T_#&mu[ZFb4q7-aXJF*@HJIoF`bn)90QeGX'RBo\j[CS_WBLjhopIrCQ:*MfMK*;`q:Pi`BeZSnoCW4EI:->a[I9<:WZJ\2laUg\!:CR,]<84]W>FbY2q'*!>DICEj`p0I%K-]Omm!`b,ZV$1f?6oMR8R=_p7B&rm(*Xgb=`EFR8boR.c((X7H:X]WDT]Y);sl>d;e(TJB!0&NedEG`XO),C)%J\JW>7E)VL9>U9=#[a[1V.sbFR[&ta.F)nc26u4W*Y`kE2!HTm"+'#i_=od9ptWJ(2uJ_biAY+^V`eLpUmpWAj!S<$=@l`U7tf80ccZO'V-@CC.lK_s8989[eK8M^DV9X+F4SG%)Is_G,rQ*3Q]V\4LICZLCYZrP?*]o7buU?l7N)C>kUYh#:aCqC'9H+*[]"H8^=XnX<p1Zf:a:8CLmn&g+ZHd0RXIF]3:EfcqTF[M04SUmiXDG%(.h'5IqjHU#1$K+i/OEnB,dfJN!.C`<^E$^)A8UPIRkkH*UkHsB*/QeS.12tCIcs:dM#XZI)+4L&'LjTXE19g0)q^r,Z9^M5a0'XJ>r]h=L!#`GtffDH\D\u3rKUOiJ=(Fd(#>uqqe8!(A;N@EE_;VAO=!XX."Y9YU/1-blN5k]G-5>#21r/WX'UH8tjk7>[j7Y)F183/l(7VB0@:1[SD"?jKc!F6$;B`]sSa%>%f[1S+k3O1A!1\P;MG.=YE$@2""3tLpA)8;LE?Yirt<3!=+q0USW+-5,4f'$8A`$X6S',7;FMrSojtr>No*gqY8lSC%U:%`g^6i_/=$uJ)^lReVUtAo4!?t^"XKiYk-ki=VkAN-:4Kc$;7(-eDr`3gHm_#h;$=<L-#b>7i,<L"r$iiI!u)Km^BPP3;TATSh)bd*!oo[cKkjH53OAX>%2Bp/AcSnrLemo2i5A<1KfmBjuoYRnJsF9Hd,';.GSF1<KCl<7Em<s%du9dGNMS;_ioBs:BLA$04(:GaHM$uV4YBH?C5la)XnnS4!k[N]5Q4&)W-T'*]Z>s5^,Gi%g-1IKd5J:UGj759rk(4C(%%TP]\9ePZW'thha-0h<=6i'6b@e(X:O"Ah-OJlu;ToqP'+E_u+1R^^W;qT-!j4*L1$reH(FHK.RL<?oKf@>"_a4DFs;ZjElm2`,I+.[@:4k^rJm]M2%]+"7apYdF4Xi]Y"AngL;80M7BqaE'>gr_o/tBrV#>u_R8ZnDn>ceSKNC3~>
+endstream
+endobj
 27 0 obj
+<<
+/F1 28 0 R
+/F2 29 0 R
+/F3 30 0 R
+>>
+endobj
+28 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+29 0 obj
 <<
 /BaseFont /Helvetica-Bold
 /Encoding /WinAnsiEncoding
@@ -1079,7 +923,7 @@ endobj
 /Type /Font
 >>
 endobj
-28 0 obj
+30 0 obj
 <<
 /BaseFont /Times-Roman
 /Encoding /WinAnsiEncoding
@@ -1089,7 +933,7 @@ endobj
 >>
 endobj
 xref
-0 29
+0 31
 0000000000 65535 f 
 0000000015 00000 n 
 0000000181 00000 n 
@@ -1111,20 +955,22 @@ xref
 0000014882 00000 n 
 0000019698 00000 n 
 0000019806 00000 n 
-0000020063 00000 n 
-0000024930 00000 n 
-0000025038 00000 n 
-0000025230 00000 n 
-0000026840 00000 n 
-0000026895 00000 n 
-0000027003 00000 n 
-0000027116 00000 n 
+0000019998 00000 n 
+0000022715 00000 n 
+0000022759 00000 n 
+0000022867 00000 n 
+0000022977 00000 n 
+0000023169 00000 n 
+0000024779 00000 n 
+0000024834 00000 n 
+0000024942 00000 n 
+0000025055 00000 n 
 trailer
 <<
-/Size 29
+/Size 31
 /Root 3 0 R
 /Info 1 0 R
 >>
 startxref
-27226
+25165
 %%EOF
