@@ -649,6 +649,38 @@ button, input, textarea { font: inherit; }
 .submission-decision-pending { border-color: #9b6c25; }
 .submission-decision-rejected { border-color: #a33b22; }
 
+.admin-page { max-width: 1060px; }
+.admin-header { display: grid; gap: 2rem; padding-bottom: 2rem; border-bottom: 3px double var(--rule); }
+.admin-header h1 { max-width: 12ch; margin: 0; font-family: var(--serif); font-size: clamp(2.8rem, 9vw, 5.8rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.95; }
+.admin-queue-summary { align-self: end; padding: 1.25rem; border-block: 1px solid var(--rule); }
+.admin-queue-summary p { margin: 0; }
+.admin-queue-summary p:nth-child(2) { font-family: var(--serif); font-size: 1.1rem; }
+.admin-queue-summary strong { font-size: 2rem; }
+.admin-queue-summary p:last-child { margin-top: 0.2rem; color: var(--muted); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; }
+.admin-review-list { display: grid; gap: 2rem; padding-top: 2rem; }
+.admin-review-card { border: 1px solid var(--rule); background: #fdfbf6; }
+.admin-review-card-header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; padding: 1.25rem; border-bottom: 3px double var(--rule); }
+.admin-review-card-header h2 { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 500; letter-spacing: -0.035em; }
+.admin-review-form { padding: 1.25rem; }
+.admin-review-grid { display: grid; gap: 0 1rem; }
+.admin-review-form label { display: block; margin: 1rem 0 0.45rem; font-size: 0.76rem; font-weight: 850; }
+.admin-review-form label span { color: var(--muted); font-weight: 500; }
+.admin-review-form input,
+.admin-review-form textarea,
+.admin-review-form select { width: 100%; padding: 0.75rem; border: 1px solid #777c77; border-radius: 0; background: white; color: var(--ink); line-height: 1.45; }
+.admin-review-form textarea { resize: vertical; }
+.admin-rejection-panel { margin-top: 1.5rem; padding: 1rem; border-left: 4px solid #a33b22; background: #f4e4dd; }
+.admin-rejection-panel h3 { margin: 0; font-family: var(--serif); font-size: 1.45rem; }
+.admin-rejection-panel > p { margin: 0.3rem 0 0; color: #621c12; font-size: 0.78rem; line-height: 1.45; }
+.admin-review-form .form-message { max-width: none; margin-top: 1rem; padding: 0.85rem; }
+.admin-review-actions { display: grid; gap: 0.75rem; margin-top: 1rem; }
+.admin-review-actions button { padding: 0.85rem 1rem; border: 1px solid var(--ink); border-radius: 0; background: transparent; color: var(--ink); cursor: pointer; font-weight: 850; }
+.admin-review-actions button:hover:not(:disabled) { background: var(--paper-deep); }
+.admin-review-actions button:disabled { cursor: wait; opacity: 0.65; }
+.admin-review-actions .admin-approve-button { background: var(--teal-dark); color: white; }
+.admin-review-actions .admin-approve-button:hover:not(:disabled) { background: var(--teal); }
+.admin-review-actions .admin-reject-button { border-color: #7a2619; color: #7a2619; }
+
 .site-footer { border-top: 1px solid var(--rule); background: var(--paper-deep); }
 
 .footer-inner {
@@ -683,6 +715,10 @@ button, input, textarea { font: inherit; }
   .detail-grid { grid-template-columns: minmax(0, 1.1fr) minmax(19rem, 0.9fr); }
   .submission-header { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.6fr); gap: 4rem; }
   .submissions-header { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.6fr); gap: 4rem; }
+  .admin-header { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.6fr); gap: 4rem; }
+  .admin-review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-review-wide { grid-column: 1 / -1; }
+  .admin-review-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .submission-card-facts { grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(8rem, 0.55fr)); }
   .coordinate-fields,
   .submission-field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

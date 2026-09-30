@@ -10,7 +10,8 @@
     "test:import": "node --test scripts/lib/public-restrooms-import.test.mjs",
     "import:restrooms": "node scripts/import-public-restrooms.mjs",
     "verify:permissions": "node scripts/verify-permissions.mjs",
-    "verify:reviews": "node scripts/verify-reviews.mjs"
+    "verify:reviews": "node scripts/verify-reviews.mjs",
+    "verify:admin-review": "node scripts/verify-admin-review.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

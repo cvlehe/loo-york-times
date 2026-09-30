@@ -29,6 +29,19 @@ Service setup decisions and the remaining external configuration are recorded in
 Task 05 permissions, import behavior, live reconciliation, and rerun instructions
 are recorded in [`docs/permissions-and-import.md`](docs/permissions-and-import.md).
 
+The Task 13 admin queue depends on
+`supabase/migrations/20260929120000_add_idempotent_submission_approval.sql`.
+After applying that migration, verify the administrator-only approval and
+rejection workflow against a configured Supabase project with:
+
+```bash
+npm run verify:admin-review
+```
+
+The verification creates temporary users, submissions, and one published
+listing, checks approval retry behavior and contributor-visible decisions, then
+removes all temporary records.
+
 The public map reads only published listings. If the MapTiler key is absent or a
 map request fails, the accessible list remains available alongside an explicit
 map-error message.
