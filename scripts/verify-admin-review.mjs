@@ -19,6 +19,31 @@ const serviceApi = createClient(supabaseUrl, serviceRoleKey, {
   auth: { autoRefreshToken: false, persistSession: false },
 });
 
+const approvalProbeArguments = {
+  p_submission_id: "00000000-0000-0000-0000-000000000000",
+  p_name: "Verification probe",
+  p_address_text: null,
+  p_latitude: null,
+  p_longitude: null,
+  p_city_ownership_explanation: "Verification probe",
+  p_hours_text: null,
+  p_restroom_type: null,
+  p_accessibility_notes: null,
+  p_changing_station_notes: null,
+  p_additional_notes: null,
+  p_website_url: null,
+};
+const { error: approvalProbeError } = await serviceApi.rpc(
+  "approve_submission",
+  approvalProbeArguments,
+);
+if (approvalProbeError?.code === "PGRST202") {
+  throw new Error(
+    "The live Supabase project is missing approve_submission. Apply 20260929120000_add_idempotent_submission_approval.sql before running this check.",
+  );
+}
+assert.equal(approvalProbeError?.code, "42501");
+
 async function createAuthenticatedUser(label, runId) {
   const email = `task-13-${label}-${runId}@example.invalid`;
   const password = `${randomUUID()}Aa1!`;
@@ -78,10 +103,13 @@ try {
         city_ownership_explanation: "Temporary Task 13 eligibility verification",
       },
     ])
-    .select("id")
-    .order("created_at");
+    .select("id,name");
   if (submissionError) throw submissionError;
-  submissionIds.push(...submissions.map(({ id }) => id));
+  const approvalSubmission = submissions.find(({ name }) => name === `Task 13 approval ${runId}`);
+  const rejectionSubmission = submissions.find(({ name }) => name === `Task 13 rejection ${runId}`);
+  assert.ok(approvalSubmission);
+  assert.ok(rejectionSubmission);
+  submissionIds.push(approvalSubmission.id, rejectionSubmission.id);
 
   const approvalArguments = {
     p_submission_id: submissionIds[0],

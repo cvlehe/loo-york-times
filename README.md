@@ -69,6 +69,17 @@ The public map reads only published listings. If the MapTiler key is absent or a
 map request fails, the accessible list remains available alongside an explicit
 map-error message.
 
+Task 17's complete automated verification suite is available with:
+
+```bash
+npm run verify:demo
+```
+
+It runs lint, import tests, a production build, and every focused live Supabase
+verification while continuing through failures so the final summary shows all
+outstanding work. The current manual and automated evidence log is in
+[`docs/task-17-verification.md`](docs/task-17-verification.md).
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

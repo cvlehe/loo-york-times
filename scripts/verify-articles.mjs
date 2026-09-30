@@ -22,6 +22,17 @@ const visitorApi = createClient(supabaseUrl, publishableKey, {
   auth: { autoRefreshToken: false, persistSession: false },
 });
 
+const { error: articlesProbeError } = await serviceApi
+  .from("articles")
+  .select("id")
+  .limit(0);
+if (articlesProbeError?.code === "PGRST205") {
+  throw new Error(
+    "The live Supabase project is missing public.articles. Apply 20260930120000_create_articles.sql before running this check.",
+  );
+}
+if (articlesProbeError) throw articlesProbeError;
+
 async function createAuthenticatedUser(label, runId) {
   const email = `task-15-${label}-${runId}@example.invalid`;
   const password = `${randomUUID()}Aa1!`;
