@@ -773,6 +773,60 @@ button, input, textarea { font: inherit; }
 .admin-article-form button:hover:not(:disabled) { background: var(--teal); }
 .admin-article-form button:disabled { cursor: wait; opacity: 0.65; }
 
+.progress-page { max-width: 1060px; }
+.progress-header { display: grid; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 3px double var(--rule); }
+.progress-header h1 { max-width: 12ch; margin: 0; font-family: var(--serif); font-size: clamp(2.8rem, 9vw, 5.8rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.95; }
+.progress-goal { align-self: end; padding: 1.25rem; border-block: 1px solid var(--rule); }
+.progress-goal p { margin: 0; }
+.progress-goal-label { color: var(--teal-dark); font-size: 0.7rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; }
+.progress-goal-number { margin-block: 0.15rem !important; font-family: var(--serif); font-size: clamp(3.4rem, 10vw, 5.5rem); font-weight: 700; letter-spacing: -0.055em; line-height: 1; }
+.progress-goal p:last-child { font-family: var(--serif); font-size: 1.05rem; }
+.sample-warning { display: grid; gap: 0.4rem; margin-block: 1.5rem 3rem; padding: 1rem 1.15rem; border-left: 5px solid #a85d00; background: #f5e9c9; color: #563500; }
+.sample-warning p { margin: 0; line-height: 1.45; }
+.sample-warning p:first-child { font-size: 0.78rem; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; }
+.sample-warning p:last-child { max-width: 80ch; font-family: var(--serif); }
+.progress-section-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--rule); }
+.progress-section-heading h2,
+.progress-table-section h2 { margin: 0; font-family: var(--serif); font-size: clamp(2.1rem, 6vw, 3.6rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
+.progress-legend { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; color: var(--muted); font-size: 0.72rem; font-weight: 750; }
+.progress-legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.legend-line { width: 2rem; border-top: 3px solid var(--teal-dark); }
+.legend-target { border-top-color: #a85d00; border-top-style: dashed; }
+.progress-figure { margin: 0; }
+.progress-chart-scroll { overflow-x: auto; border-bottom: 1px solid #aaa99f; background: #fdfbf6; }
+.progress-chart-scroll:focus-visible { outline-offset: -3px; }
+.progress-chart { display: block; width: 100%; min-width: 42rem; height: auto; }
+.chart-grid-line { stroke: #d3d0c7; stroke-width: 1; }
+.chart-axis { stroke: var(--ink); stroke-width: 1.5; }
+.chart-history-line,
+.chart-target-line { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.chart-history-line { stroke: var(--teal-dark); }
+.chart-target-line { stroke: #a85d00; stroke-dasharray: 9 8; }
+.chart-point { fill: var(--paper); stroke: var(--teal-dark); stroke-width: 4; vector-effect: non-scaling-stroke; }
+.chart-point-target { fill: #a85d00; stroke: var(--paper); }
+.chart-axis-label,
+.chart-year,
+.chart-y-title { fill: var(--muted); font-family: var(--font-geist-sans), Arial, sans-serif; font-size: 12px; }
+.chart-year { fill: var(--ink); font-weight: 800; }
+.chart-y-title { font-size: 11px; font-weight: 750; letter-spacing: 0.08em; text-transform: uppercase; }
+.chart-value { fill: var(--teal-dark); font-family: var(--font-geist-mono), monospace; font-size: 13px; font-weight: 800; }
+.chart-target-value { fill: #7c4500; font-size: 17px; }
+.chart-target-label { fill: #7c4500; font-family: var(--font-geist-sans), Arial, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.progress-figure figcaption { padding-top: 0.8rem; color: var(--muted); font-size: 0.75rem; line-height: 1.45; }
+.progress-table-section { display: grid; gap: 1.5rem 3rem; margin-top: 3.5rem; padding-block: 2.5rem; border-block: 3px double var(--rule); }
+.progress-table-section > div:first-child > p:last-child { max-width: 34rem; margin-bottom: 0; color: var(--muted); font-family: var(--serif); line-height: 1.5; }
+.progress-table-wrap { overflow-x: auto; }
+.progress-table { width: 100%; border-collapse: collapse; background: #fdfbf6; font-variant-numeric: tabular-nums; }
+.progress-table caption { padding: 0 0 0.75rem; color: var(--muted); font-size: 0.72rem; text-align: left; }
+.progress-table th,
+.progress-table td { padding: 0.85rem 0.75rem; border-bottom: 1px solid #aaa99f; text-align: left; }
+.progress-table thead th { border-block: 2px solid var(--rule); font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.progress-table tbody th { color: var(--teal-dark); font-family: var(--font-geist-mono), monospace; }
+.progress-table td:nth-child(2) { font-family: var(--font-geist-mono), monospace; font-weight: 800; }
+.progress-table td:last-child { color: var(--muted); font-size: 0.78rem; }
+.inventory-boundary { max-width: 760px; margin-top: 2.5rem; padding: 1.25rem; border-left: 5px solid var(--teal); background: var(--paper-deep); }
+.inventory-boundary p:last-child { margin: 0; font-family: var(--serif); font-size: 1.05rem; line-height: 1.5; }
+
 .site-footer { border-top: 1px solid var(--rule); background: var(--paper-deep); }
 
 .footer-inner {
@@ -823,6 +877,8 @@ button, input, textarea { font: inherit; }
   .editorial-article-list li:nth-child(odd) { padding-right: 1.5rem; }
   .editorial-article-list li:nth-child(even) { padding-left: 1.5rem; }
   .admin-article-header { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.6fr); gap: 4rem; }
+  .progress-header { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.6fr); gap: 4rem; }
+  .progress-table-section { grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.3fr); }
   .submission-card-facts { grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(8rem, 0.55fr)); }
   .coordinate-fields,
   .submission-field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
