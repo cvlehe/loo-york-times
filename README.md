@@ -42,6 +42,18 @@ The verification creates temporary users, submissions, and one published
 listing, checks approval retry behavior and contributor-visible decisions, then
 removes all temporary records.
 
+Task 14 adds administrator-only listing maintenance and review removal at
+`/admin`. To verify the existing row-level policies, public listing changes, and
+review-count updates against a configured Supabase project, run:
+
+```bash
+npm run verify:maintenance
+```
+
+This verification temporarily updates one published listing and creates two
+test users plus one review. It restores the listing and removes all temporary
+records before exiting.
+
 The public map reads only published listings. If the MapTiler key is absent or a
 map request fails, the accessible list remains available alongside an explicit
 map-error message.

@@ -11,7 +11,8 @@
     "import:restrooms": "node scripts/import-public-restrooms.mjs",
     "verify:permissions": "node scripts/verify-permissions.mjs",
     "verify:reviews": "node scripts/verify-reviews.mjs",
-    "verify:admin-review": "node scripts/verify-admin-review.mjs"
+    "verify:admin-review": "node scripts/verify-admin-review.mjs",
+    "verify:maintenance": "node scripts/verify-maintenance.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
