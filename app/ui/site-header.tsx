@@ -48,7 +48,7 @@ export function SiteHeader({ viewer }: { viewer: Viewer }) {
 
       <div className="masthead page-width">
         <Link className="brand" href="/" aria-label="The Loo York Times home">
-          <Image alt="" className="brand-mark" height={68} priority src="/logo.png" width={68} />
+          <Image alt="" className="brand-mark" height={68} priority src="/loo-york-times-logo-transparent.png" width={68} />
           <span>The Loo York Times</span>
         </Link>
         <p className="tagline">All the news that&apos;s fit to sit</p>
