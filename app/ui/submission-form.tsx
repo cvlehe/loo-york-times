@@ -7,6 +7,7 @@ import {
   createSubmission,
   type SubmissionFormState,
 } from "@/app/submissions/new/actions";
+import { SubmissionLocationPicker } from "@/app/ui/submission-location-picker";
 
 const initialState: SubmissionFormState = { message: "", status: "idle" };
 
@@ -32,29 +33,7 @@ export function SubmissionForm() {
         <label htmlFor="submission-name">Restroom or building name <span aria-hidden="true">*</span></label>
         <input id="submission-name" maxLength={200} name="name" required type="text" />
 
-        <label htmlFor="submission-address">Street address</label>
-        <textarea
-          id="submission-address"
-          maxLength={500}
-          name="address"
-          placeholder="Street address, cross streets, park entrance, or another precise location"
-          rows={3}
-        />
-
-        <fieldset>
-          <legend>Map coordinates <span>(optional if you entered an address)</span></legend>
-          <p className="field-help">If you use coordinates, enter both values.</p>
-          <div className="coordinate-fields">
-            <div>
-              <label htmlFor="submission-latitude">Latitude</label>
-              <input id="submission-latitude" max="90" min="-90" name="latitude" step="any" type="number" />
-            </div>
-            <div>
-              <label htmlFor="submission-longitude">Longitude</label>
-              <input id="submission-longitude" max="180" min="-180" name="longitude" step="any" type="number" />
-            </div>
-          </div>
-        </fieldset>
+        <SubmissionLocationPicker key={state.submissionId ?? "new-submission"} />
       </section>
 
       <section aria-labelledby="submission-eligibility-heading" className="submission-form-section">

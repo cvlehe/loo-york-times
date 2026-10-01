@@ -456,6 +456,18 @@ button, input, textarea { font: inherit; }
   transform: rotate(-45deg);
 }
 .restroom-marker-active { background: #d86a1d; transform: rotate(-45deg) scale(1.35); }
+.restroom-popup .maplibregl-popup-content {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--paper);
+  box-shadow: 3px 3px 0 rgb(20 24 23 / 0.28);
+}
+.restroom-popup .maplibregl-popup-tip { border-top-color: var(--paper); }
+.restroom-popup .maplibregl-popup-close-button { padding: 0.1rem 0.35rem; color: var(--muted); font-size: 1.1rem; }
+.restroom-popup-content { display: grid; gap: 0.2rem; padding-right: 0.75rem; }
+.restroom-popup-content strong { font-family: var(--serif); font-size: 1rem; line-height: 1.15; }
+.restroom-popup-content span { color: var(--teal-dark); font-size: 0.72rem; font-weight: 800; }
 .user-location-marker { width: 1rem; height: 1rem; border: 3px solid white; border-radius: 50%; background: #2869b4; box-shadow: 0 1px 4px rgb(0 0 0 / 0.35); }
 .data-error { margin: 0; padding: 1rem; border-left: 5px solid #a33b22; background: #f4e4dd; color: #621c12; }
 
@@ -620,6 +632,34 @@ button, input, textarea { font: inherit; }
 .submission-form textarea { resize: vertical; }
 .submission-form fieldset { margin: 0; padding: 0; border: 0; }
 .field-help { margin: -0.25rem 0 0.6rem; color: var(--muted); font-size: 0.72rem; }
+.address-autocomplete { position: relative; }
+.address-suggestions {
+  position: absolute;
+  z-index: 4;
+  top: calc(100% - 1px);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: white;
+  box-shadow: 0 8px 18px rgb(20 24 23 / 0.16);
+  list-style: none;
+}
+.address-suggestions li { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.65rem; padding: 0.8rem; border-bottom: 1px solid #d4d2ca; cursor: pointer; line-height: 1.35; }
+.address-suggestions li:last-child { border-bottom: 0; }
+.address-suggestions li:hover,
+.address-suggestion-active { background: var(--paper-deep); }
+.address-suggestions li span { padding-top: 0.1rem; color: var(--teal-dark); font-family: var(--font-geist-mono), monospace; font-size: 0.68rem; font-weight: 850; }
+.address-search-status { min-height: 1.1rem; margin: 0.4rem 0 0; color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
+.submission-map-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #aaa99f; }
+.submission-map-heading p { margin: 0; }
+.submission-map-heading > div > p:last-child { margin-top: 0.25rem; color: var(--muted); font-size: 0.78rem; line-height: 1.4; }
+.submission-map-heading > span { flex: none; color: var(--teal-dark); font-size: 0.68rem; font-weight: 850; letter-spacing: 0.07em; text-transform: uppercase; }
+.submission-map-wrap { position: relative; height: clamp(18rem, 48vw, 27rem); margin-top: 0.75rem; border: 1px solid var(--rule); background: #dfe5df; overflow: hidden; }
+.submission-map { position: absolute; inset: 0; }
+.submission-location-marker { width: 1.4rem; height: 1.4rem; border: 3px solid white; border-radius: 50% 50% 50% 0; background: var(--teal); box-shadow: 0 2px 7px rgb(0 0 0 / 0.35); cursor: grab; transform: rotate(-45deg); }
+.submission-location-marker:active { cursor: grabbing; }
 .coordinate-fields,
 .submission-field-grid { display: grid; gap: 0 1rem; }
 .submission-form-footer { padding-top: 1.5rem; }

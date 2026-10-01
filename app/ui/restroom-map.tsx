@@ -11,6 +11,8 @@ export type PublicRestroom = {
   latitude: number;
   longitude: number;
   neighborhood: string | null;
+  average_rating: number | null;
+  review_count: number;
 };
 
 type RestroomMapProps = { restrooms: PublicRestroom[] };
@@ -57,10 +59,30 @@ function locationMessage(locationState: LocationState) {
   }
 }
 
+function createPopupContent(restroom: PublicRestroom) {
+  const content = document.createElement("div");
+  content.className = "restroom-popup-content";
+
+  const name = document.createElement("strong");
+  name.textContent = restroom.name;
+  content.append(name);
+
+  if (restroom.average_rating !== null) {
+    const rating = document.createElement("span");
+    const reviewLabel = restroom.review_count === 1 ? "review" : "reviews";
+    rating.textContent = `${restroom.average_rating.toFixed(1)} ★ · ${restroom.review_count} ${reviewLabel}`;
+    content.append(rating);
+  }
+
+  return content;
+}
+
 export function RestroomMap({ restrooms }: RestroomMapProps) {
   const mapElement = useRef<HTMLDivElement>(null);
   const mapRef = useRef<import("maplibre-gl").Map | null>(null);
   const markersRef = useRef<Map<string, import("maplibre-gl").Marker>>(new Map());
+  const popupRef = useRef<import("maplibre-gl").Popup | null>(null);
+  const popupRestroomIdRef = useRef<string | null>(null);
   const userMarkerRef = useRef<import("maplibre-gl").Marker | null>(null);
   const [activeId, setActiveId] = useState<string | null>(restrooms[0]?.id ?? null);
   const [mapState, setMapState] = useState<"loading" | "ready" | "error">("loading");
@@ -91,6 +113,12 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
         attributionControl: false,
       });
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
+      popupRef.current = new maplibregl.Popup({
+        className: "restroom-popup",
+        closeOnClick: false,
+        maxWidth: "15rem",
+        offset: 18,
+      });
       map.on("load", () => {
         if (disposed) return;
         restrooms.forEach((restroom) => {
@@ -98,7 +126,7 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
           markerElement.className = "restroom-marker";
           markerElement.type = "button";
           markerElement.setAttribute("aria-label", `Select ${restroom.name}`);
-          markerElement.addEventListener("click", () => setActiveId(restroom.id));
+          markerElement.addEventListener("click", () => selectRestroom(restroom));
           markers.set(restroom.id, new maplibregl.Marker({ element: markerElement, anchor: "bottom" })
             .setLngLat([restroom.longitude, restroom.latitude]).addTo(map));
         });
@@ -112,6 +140,9 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
       disposed = true;
       userMarkerRef.current?.remove();
       userMarkerRef.current = null;
+      popupRef.current?.remove();
+      popupRef.current = null;
+      popupRestroomIdRef.current = null;
       markers.clear();
       mapRef.current?.remove();
       mapRef.current = null;
@@ -125,6 +156,10 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
       markerElement.hidden = !visibleIds.has(id);
       markerElement.classList.toggle("restroom-marker-active", id === activeId && visibleIds.has(id));
     });
+    if (popupRestroomIdRef.current && !visibleIds.has(popupRestroomIdRef.current)) {
+      popupRef.current?.remove();
+      popupRestroomIdRef.current = null;
+    }
   }, [activeId, mapState, matchingRestrooms]);
 
   useEffect(() => {
@@ -135,7 +170,25 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
 
   function selectRestroom(restroom: PublicRestroom) {
     setActiveId(restroom.id);
-    document.getElementById(`restroom-${restroom.id}`)?.scrollIntoView({ block: "nearest" });
+    const map = mapRef.current;
+    const popup = popupRef.current;
+
+    if (map && popup) {
+      popup
+        .setDOMContent(createPopupContent(restroom))
+        .setLngLat([restroom.longitude, restroom.latitude])
+        .addTo(map);
+      popupRestroomIdRef.current = restroom.id;
+      map.flyTo({
+        center: [restroom.longitude, restroom.latitude],
+        zoom: Math.max(map.getZoom(), 14),
+        essential: true,
+      });
+    }
+
+    requestAnimationFrame(() => {
+      document.getElementById(`restroom-${restroom.id}`)?.scrollIntoView({ block: "nearest" });
+    });
   }
 
   function updateQuery(nextQuery: string) {

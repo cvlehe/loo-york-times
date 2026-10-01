@@ -16,7 +16,7 @@ export default async function Home() {
     for (let start = 0; ; start += pageSize) {
       const { data, error } = await supabase
         .from("restrooms")
-        .select("id, name, address_text, borough, latitude, longitude, neighborhood")
+        .select("id, name, address_text, borough, latitude, longitude, neighborhood, reviews (rating)")
         .eq("publication_status", "published")
         .not("latitude", "is", null)
         .not("longitude", "is", null)
@@ -28,11 +28,20 @@ export default async function Home() {
       if (!data || data.length < pageSize) break;
     }
 
-    restrooms = records.map((restroom) => ({
-      ...restroom,
-      latitude: Number(restroom.latitude),
-      longitude: Number(restroom.longitude),
-    }));
+    restrooms = records.map((restroom) => {
+      const { reviews, ...listing } = restroom;
+      const ratings = reviews ?? [];
+
+      return {
+        ...listing,
+        latitude: Number(restroom.latitude),
+        longitude: Number(restroom.longitude),
+        average_rating: ratings.length
+          ? ratings.reduce((total, review) => total + review.rating, 0) / ratings.length
+          : null,
+        review_count: ratings.length,
+      };
+    });
   } catch {
     listingsError = true;
   }
