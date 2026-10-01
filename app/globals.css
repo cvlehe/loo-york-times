@@ -237,7 +237,8 @@ button, input, textarea { font: inherit; }
 }
 
 .hero-copy h1 {
-  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  max-width: 22ch;
+  font-size: clamp(1.6rem, 4.5vw, 3.15rem);
   letter-spacing: -0.035em;
   line-height: 1;
 }
@@ -300,11 +301,25 @@ button, input, textarea { font: inherit; }
   border-block: 1px solid var(--rule);
 }
 
+.hero-brief > div {
+  width: 100%;
+  text-align: center;
+}
+
 .hero-brief p:last-child {
   margin: 0;
   font-family: var(--serif);
   font-size: 1rem;
   line-height: 1.45;
+}
+
+.hero-brief-mark {
+  display: block;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .map-section { padding-block: 2.75rem; }

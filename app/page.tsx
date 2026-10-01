@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { RestroomMap, type PublicRestroom } from "@/app/ui/restroom-map";
@@ -50,7 +51,9 @@ export default async function Home() {
       <section className="hero-grid" aria-labelledby="home-heading">
         <div className="hero-copy">
           <p className="kicker">A public-service guide to New York City</p>
-          <h1 id="home-heading">When nature calls, know where to go.</h1>
+          <h1 id="home-heading">
+            When nature calls,<br />know where to go.
+          </h1>
           <p className="dek">
             A clearer way to find eligible public restrooms across the five
             boroughs - with practical details and reporting that holds the city
@@ -68,6 +71,13 @@ export default async function Home() {
 
         <aside className="hero-brief" aria-label="About this project">
           <div>
+            <Image
+              alt=""
+              className="hero-brief-mark"
+              height={72}
+              src="/loo-york-times-logo-transparent.png"
+              width={72}
+            />
             <p className="brief-label">The brief</p>
             <p>
               Reliable information for a basic city need. Listings are reviewed
