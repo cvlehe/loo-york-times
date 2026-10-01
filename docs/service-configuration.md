@@ -24,9 +24,9 @@ password to a `NEXT_PUBLIC_` variable or commit them to Git.
 
 ## Authentication delivery
 
-Supabase custom SMTP must use the Resend SMTP credentials associated with a
-verified sender under `reaginvonlehe.com`. The sender address is
-`login@reaginvonlehe.com`, with sender name `The Loo York Times`.
+Supabase custom SMTP uses the Resend SMTP credentials associated with the
+verified authentication subdomain `loo.reaginvonlehe.com`. The sender address
+is `login@loo.reaginvonlehe.com`, with sender name `The Loo York Times`.
 
 The required DKIM, return-path, and sending CNAME records were added in
 Squarespace and confirmed in public DNS on September 28, 2026. Resend marked
@@ -35,8 +35,35 @@ the domain verified on September 28, 2026.
 On September 29, 2026, magic-link delivery and callback redirects were verified
 against both `http://localhost:3000` and `https://loo-york-times.vercel.app`.
 Each callback established a session and returned to the matching application
-origin. Gmail classified both test messages as spam, so inbox placement remains
-a deliverability follow-up even though delivery and authentication succeeded.
+origin. Gmail classified both test messages as spam even though Gmail reported
+SPF, DKIM, and DMARC as passing. Resend's message insight identified the
+remaining high-priority problem: the visible sender used `reaginvonlehe.com`
+while the sign-in URL used `wwdjjxtgdrpgerhyyrzo.supabase.co`.
+
+Task 19 moved production authentication to the aligned subdomain
+`https://loo.reaginvonlehe.com` on October 1, 2026:
+
+- Vercel serves the production app at `loo.reaginvonlehe.com` with a valid TLS
+  certificate; the original `loo-york-times.vercel.app` address remains active.
+- Resend verified `loo.reaginvonlehe.com` for sending. Its DKIM record and
+  `rsend.loo`/`send.loo` return-path records are published in public DNS.
+- The inherited DMARC policy remains strict: `p=reject; sp=reject; adkim=s;
+  aspf=s`. DKIM is expected to provide exact DMARC alignment for mail from
+  `login@loo.reaginvonlehe.com`; SPF authenticates the Resend return path.
+- Supabase's Site URL is `https://loo.reaginvonlehe.com`. Allowed redirects
+  retain localhost and the Vercel URL and add
+  `https://loo.reaginvonlehe.com/**`.
+- Confirm-signup and magic-link templates link directly to the requested
+  application callback with `TokenHash` and `type=email`. The callback still
+  verifies the single-use token server-side and preserves the requested
+  destination.
+- Resend click and open tracking remain disabled. The domain configuration
+  continues to show tracking as available to configure, rather than enabled.
+
+Fresh Gmail testing now passes inbox placement, SPF, DKIM, DMARC, and both the
+production and localhost callback flows. The required non-Gmail placement test
+is still pending. Evidence is tracked in
+[`task-19-auth-email-deliverability.md`](task-19-auth-email-deliverability.md).
 
 Supabase Authentication > Emails > SMTP Settings is configured with:
 
@@ -44,7 +71,7 @@ Supabase Authentication > Emails > SMTP Settings is configured with:
 - Port: `465`
 - Username: `resend`
 - Password: the Resend API key generated for SMTP
-- Sender email: the chosen verified address
+- Sender email: `login@loo.reaginvonlehe.com`
 - Sender name: `The Loo York Times`
 
 Disable Resend click tracking for authentication email because rewriting a

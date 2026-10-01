@@ -26,6 +26,11 @@ temporary Task 03 magic-link test page is at
 Service setup decisions and the remaining external configuration are recorded in
 [`docs/service-configuration.md`](docs/service-configuration.md).
 
+Task 19 moved production authentication to the aligned domain
+[`loo.reaginvonlehe.com`](https://loo.reaginvonlehe.com). Its deliverability
+evidence, current templates, and fresh-mailbox acceptance checklist are in
+[`docs/task-19-auth-email-deliverability.md`](docs/task-19-auth-email-deliverability.md).
+
 Task 05 permissions, import behavior, live reconciliation, and rerun instructions
 are recorded in [`docs/permissions-and-import.md`](docs/permissions-and-import.md).
 
