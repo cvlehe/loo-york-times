@@ -31,13 +31,31 @@ export function AdminArticleForm({ article }: AdminArticleFormProps) {
   const [state, formAction] = useActionState(saveArticle, initialState);
   const [articleType, setArticleType] = useState(article?.articleType ?? "external");
   const formRef = useRef<HTMLFormElement>(null);
+  const allowFormResetRef = useRef(false);
 
   useEffect(() => {
-    if (state.articleId && !article) formRef.current?.reset();
-  }, [article, state.articleId]);
+    if (state.status !== "success" || !state.articleId || article) return;
+
+    // Server Action completions reset native, uncontrolled inputs even when the
+    // action returns a validation error. Only allow the deliberate post-save reset.
+    allowFormResetRef.current = true;
+    formRef.current?.reset();
+    allowFormResetRef.current = false;
+  }, [article, state.articleId, state.status]);
 
   return (
-    <form action={formAction} className="admin-article-form" ref={formRef}>
+    <form
+      action={formAction}
+      className="admin-article-form"
+      onReset={(event) => {
+        if (!allowFormResetRef.current) {
+          event.preventDefault();
+          return;
+        }
+        setArticleType("external");
+      }}
+      ref={formRef}
+    >
       {article ? <input name="articleId" type="hidden" value={article.id} /> : null}
       <fieldset className="article-type-toggle">
         <legend>Article location <span aria-hidden="true">*</span></legend>
