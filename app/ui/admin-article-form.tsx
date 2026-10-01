@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 
 import {
@@ -18,15 +18,18 @@ function SubmitButton() {
 
 type AdminArticleFormProps = {
   article?: {
+    articleType: "external" | "internal";
+    body: string | null;
     id: string;
     imageUrl: string | null;
     title: string;
-    url: string;
+    url: string | null;
   };
 };
 
 export function AdminArticleForm({ article }: AdminArticleFormProps) {
   const [state, formAction] = useActionState(saveArticle, initialState);
+  const [articleType, setArticleType] = useState(article?.articleType ?? "external");
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -36,23 +39,64 @@ export function AdminArticleForm({ article }: AdminArticleFormProps) {
   return (
     <form action={formAction} className="admin-article-form" ref={formRef}>
       {article ? <input name="articleId" type="hidden" value={article.id} /> : null}
+      <fieldset className="article-type-toggle">
+        <legend>Article location <span aria-hidden="true">*</span></legend>
+        <label>
+          <input
+            checked={articleType === "external"}
+            name="articleType"
+            onChange={() => setArticleType("external")}
+            type="radio"
+            value="external"
+          />
+          External link
+        </label>
+        <label>
+          <input
+            checked={articleType === "internal"}
+            name="articleType"
+            onChange={() => setArticleType("internal")}
+            type="radio"
+            value="internal"
+          />
+          Publish on this site
+        </label>
+      </fieldset>
       <label htmlFor="article-title">Title <span aria-hidden="true">*</span></label>
       <input defaultValue={article?.title} id="article-title" maxLength={200} name="title" required type="text" />
 
-      <label htmlFor="article-url">Article URL <span aria-hidden="true">*</span></label>
-      <input
-        aria-describedby="article-url-help"
-        defaultValue={article?.url}
-        id="article-url"
-        maxLength={2_048}
-        name="url"
-        placeholder="https://"
-        required
-        type="url"
-      />
-      <p className="field-help" id="article-url-help">The title will link directly to this address.</p>
+      {articleType === "external" ? (
+        <>
+          <label htmlFor="article-url">Article URL <span aria-hidden="true">*</span></label>
+          <input
+            aria-describedby="article-url-help"
+            defaultValue={article?.url ?? ""}
+            id="article-url"
+            maxLength={2_048}
+            name="url"
+            placeholder="https://"
+            required
+            type="url"
+          />
+          <p className="field-help" id="article-url-help">The title will link directly to this address.</p>
+        </>
+      ) : (
+        <>
+          <label htmlFor="article-body">Article body <span aria-hidden="true">*</span></label>
+          <textarea
+            aria-describedby="article-body-help"
+            defaultValue={article?.body ?? ""}
+            id="article-body"
+            maxLength={50_000}
+            name="body"
+            required
+            rows={16}
+          />
+          <p className="field-help" id="article-body-help">Use blank lines to separate paragraphs.</p>
+        </>
+      )}
 
-      <label htmlFor="article-image-url">Image URL <span>(optional)</span></label>
+      <label htmlFor="article-image-url">Header image URL <span>(optional)</span></label>
       <input
         aria-describedby="article-image-help"
         defaultValue={article?.imageUrl ?? ""}

@@ -86,15 +86,14 @@ button, input, textarea { font: inherit; }
   width: 3.25rem;
   height: 3.25rem;
   border-radius: 50%;
-  background: transparent;
   object-fit: cover;
 }
 
 .brand span {
-  font-family: var(--font-masthead), Georgia, serif;
+  font-family: var(--serif);
   font-size: clamp(2rem, 7vw, 4rem);
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.055em;
   line-height: 0.95;
 }
 
@@ -272,6 +271,22 @@ button, input, textarea { font: inherit; }
 
 .button-link.hero-submit-button:hover {
   background: var(--teal);
+  box-shadow: 1px 1px 0 var(--ink);
+  transform: translate(2px, 2px);
+}
+
+.button-link.hero-map-button {
+  gap: 0.55rem;
+  padding: 0.9rem 1.2rem;
+  border-color: var(--teal-dark);
+  background: var(--paper);
+  color: var(--teal-dark);
+  box-shadow: 3px 3px 0 var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.button-link.hero-map-button:hover {
+  background: var(--paper-deep);
   box-shadow: 1px 1px 0 var(--ink);
   transform: translate(2px, 2px);
 }
@@ -739,6 +754,24 @@ button, input, textarea { font: inherit; }
 .admin-section-heading { align-items: end; padding-top: 3rem; }
 .admin-section-heading h2 { margin: 0; font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 500; letter-spacing: -0.035em; }
 .admin-maintenance-section { margin-top: 3rem; border-top: 3px double var(--rule); }
+.admin-permissions-section { margin-top: 3rem; border-top: 3px double var(--rule); }
+.admin-permissions-panel { max-width: 760px; margin-top: 1.5rem; border: 1px solid var(--rule); background: #fdfbf6; }
+.admin-permissions-add { padding: 1.25rem; border-bottom: 1px solid var(--rule); }
+.admin-permissions-add label { display: block; margin-bottom: 0.5rem; font-size: 0.76rem; font-weight: 850; letter-spacing: 0.05em; text-transform: uppercase; }
+.admin-permissions-add-controls { display: flex; }
+.admin-permissions-add input { min-width: 0; flex: 1; padding: 0.75rem; border: 1px solid #777c77; border-radius: 0; background: white; color: var(--ink); line-height: 1.45; }
+.admin-permissions-add button { padding: 0.75rem 1rem; border: 1px solid var(--ink); border-left: 0; border-radius: 0; background: var(--teal-dark); color: white; cursor: pointer; font-weight: 850; }
+.admin-permissions-add button:hover:not(:disabled) { background: var(--teal); }
+.admin-permissions-add button:disabled, .admin-permissions-list button:disabled { cursor: wait; opacity: 0.65; }
+.admin-permissions-add > p { margin: 0.65rem 0 0; color: var(--muted); font-size: 0.78rem; line-height: 1.4; }
+.admin-permissions-panel > .form-message { max-width: none; margin: 1rem 1.25rem 0; }
+.admin-permissions-list { margin: 0; padding: 0; list-style: none; }
+.admin-permissions-list li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; border-top: 1px solid #aaa99f; }
+.admin-permissions-list strong { overflow-wrap: anywhere; }
+.admin-permissions-list p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.76rem; }
+.admin-you-label { display: inline-block; margin-left: 0.55rem; color: var(--teal-dark); font-size: 0.68rem; font-weight: 850; letter-spacing: 0.06em; text-transform: uppercase; }
+.admin-permissions-list button { padding: 0.55rem 0.75rem; border: 1px solid #7a2619; border-radius: 0; background: transparent; color: #7a2619; cursor: pointer; font-size: 0.76rem; font-weight: 850; }
+.admin-permissions-list button:hover:not(:disabled) { background: #f4e4dd; }
 .admin-maintenance-search { display: grid; gap: 0.55rem; margin-top: 1.5rem; padding: 1rem; border: 1px solid var(--rule); background: var(--paper-deep); }
 .admin-maintenance-search label { font-size: 0.76rem; font-weight: 850; letter-spacing: 0.05em; text-transform: uppercase; }
 .admin-maintenance-search-controls { display: flex; }
@@ -827,6 +860,7 @@ button, input, textarea { font: inherit; }
 .article-body p { margin: 0 0 1.35rem; font-family: var(--serif); font-size: clamp(1.08rem, 2vw, 1.22rem); line-height: 1.72; }
 .article-body > div:first-child > p:first-child::first-letter { float: left; margin: 0.08em 0.09em 0 0; color: var(--teal-dark); font-family: var(--serif); font-size: 4.2em; line-height: 0.77; }
 .article-body blockquote { margin: 2.25rem 0; padding: 1.25rem 0; border-block: 3px double var(--rule); color: var(--teal-dark); font-family: var(--serif); font-size: clamp(1.55rem, 5vw, 2.35rem); font-style: italic; line-height: 1.16; }
+.published-article-header-image { display: block; width: 100%; max-width: 800px; max-height: 34rem; margin: 1.5rem 0 2.75rem; border: 1px solid #aaa99f; object-fit: cover; }
 .article-footer { max-width: 680px; margin: 3rem auto 0; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
 .article-footer > p:nth-child(2) { margin: 0 0 1rem; color: var(--muted); font-family: var(--serif); line-height: 1.5; }
 
@@ -837,7 +871,13 @@ button, input, textarea { font: inherit; }
 .admin-article-form label { display: block; margin: 1.1rem 0 0.5rem; font-size: 0.78rem; font-weight: 850; }
 .admin-article-form label:first-child { margin-top: 0; }
 .admin-article-form label span { color: var(--muted); font-weight: 500; }
-.admin-article-form input { width: 100%; padding: 0.8rem; border: 1px solid #777c77; border-radius: 0; background: white; color: var(--ink); line-height: 1.45; }
+.admin-article-form input,
+.admin-article-form textarea { width: 100%; padding: 0.8rem; border: 1px solid #777c77; border-radius: 0; background: white; color: var(--ink); line-height: 1.45; }
+.admin-article-form textarea { resize: vertical; }
+.article-type-toggle { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 0; padding: 0; border: 0; }
+.article-type-toggle legend { width: 100%; margin-bottom: 0.5rem; font-size: 0.78rem; font-weight: 850; }
+.article-type-toggle label { display: inline-flex; align-items: center; gap: 0.45rem; margin: 0; padding: 0.7rem 0.85rem; border: 1px solid #777c77; background: white; cursor: pointer; font-weight: 700; }
+.article-type-toggle input { width: auto; padding: 0; }
 .admin-article-form .form-message { max-width: none; margin: 1.25rem 0; padding: 0.85rem; }
 .admin-article-form .form-message p { margin: 0 0 0.5rem; }
 .admin-article-form button { width: 100%; margin-top: 1.5rem; padding: 0.9rem 1rem; border: 1px solid var(--ink); border-radius: 0; background: var(--teal-dark); color: white; cursor: pointer; font-weight: 850; }

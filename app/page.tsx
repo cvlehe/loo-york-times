@@ -60,6 +60,9 @@ export default async function Home() {
             <Link className="button-link hero-submit-button" href="/submissions/new">
               Submit a restroom <span aria-hidden="true">→</span>
             </Link>
+            <Link className="button-link hero-map-button" href="#restroom-map">
+              View map <span aria-hidden="true">↓</span>
+            </Link>
           </div>
         </div>
 

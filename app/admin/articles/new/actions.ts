@@ -52,20 +52,31 @@ export async function saveArticle(
   formData: FormData,
 ): Promise<ArticleFormState> {
   const articleId = readText(formData, "articleId");
+  const articleType = readText(formData, "articleType");
   const title = readText(formData, "title");
   const articleUrlInput = readText(formData, "url");
   const imageUrlInput = readText(formData, "imageUrl");
+  const body = readText(formData, "body");
 
   if (!title || title.length > 200) {
     return { status: "error", message: "Enter a title of 200 characters or fewer." };
   }
 
-  if (!articleUrlInput || articleUrlInput.length > 2_048) {
-    return { status: "error", message: "Enter an article URL of 2,048 characters or fewer." };
+  if (articleType !== "external" && articleType !== "internal") {
+    return { status: "error", message: "Choose whether this is an internal or external article." };
   }
-  const url = normalizeWebUrl(articleUrlInput);
-  if (!url) {
-    return { status: "error", message: "Enter a complete http:// or https:// article URL." };
+
+  let url: string | null = null;
+  if (articleType === "external") {
+    if (!articleUrlInput || articleUrlInput.length > 2_048) {
+      return { status: "error", message: "Enter an article URL of 2,048 characters or fewer." };
+    }
+    url = normalizeWebUrl(articleUrlInput);
+    if (!url) {
+      return { status: "error", message: "Enter a complete http:// or https:// article URL." };
+    }
+  } else if (!body || body.length > 50_000) {
+    return { status: "error", message: "Enter an article body of 50,000 characters or fewer." };
   }
 
   if (imageUrlInput.length > 2_048) {
@@ -81,7 +92,13 @@ export async function saveArticle(
     return { status: "error", message: "Administrator access is required." };
   }
 
-  const articleData = { image_url: imageUrl, title, url };
+  const articleData = {
+    article_type: articleType,
+    body: articleType === "internal" ? body : null,
+    image_url: imageUrl,
+    title,
+    url,
+  };
   const query = articleId
     ? supabase.from("articles").update(articleData).eq("id", articleId)
     : supabase.from("articles").insert({ ...articleData, created_by: adminId });
@@ -95,6 +112,7 @@ export async function saveArticle(
   }
 
   revalidatePath("/journalism");
+  revalidatePath("/journalism/published/[id]", "page");
   return {
     articleId: data.id,
     status: "success",
@@ -124,5 +142,6 @@ export async function deleteArticle(
   }
 
   revalidatePath("/journalism");
+  revalidatePath("/journalism/published/[id]", "page");
   return { status: "idle", message: "" };
 }

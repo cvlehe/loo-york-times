@@ -46,17 +46,26 @@ export default async function NewArticlePage({ searchParams }: NewArticlePagePro
     );
   }
 
-  let article: { id: string; imageUrl: string | null; title: string; url: string } | undefined;
+  let article: {
+    articleType: "external" | "internal";
+    body: string | null;
+    id: string;
+    imageUrl: string | null;
+    title: string;
+    url: string | null;
+  } | undefined;
   if (articleId) {
     const supabase = await createClient();
     const { data, error } = await supabase
       .from("articles")
-      .select("id, image_url, title, url")
+      .select("id, article_type, body, image_url, title, url")
       .eq("id", articleId)
       .maybeSingle();
 
     if (error || !data) notFound();
     article = {
+      articleType: data.article_type as "external" | "internal",
+      body: data.body,
       id: data.id,
       imageUrl: data.image_url,
       title: data.title,
@@ -71,11 +80,11 @@ export default async function NewArticlePage({ searchParams }: NewArticlePagePro
         <div>
           <p className="kicker">Journalism desk</p>
           <h1>{article ? "Edit article" : "Add an article"}</h1>
-          <p className="dek">{article ? "Update this article link and its optional image." : "Publish a titled link on the journalism page, with an optional image."}</p>
+          <p className="dek">{article ? "Update this article or external link." : "Publish a full article here or add a link to reporting elsewhere."}</p>
         </div>
         <aside className="submission-brief" aria-label="Article entry scope">
-          <p className="brief-label">Link entry only</p>
-          <p>The article body stays at the URL you provide. This demo does not include an article editor.</p>
+          <p className="brief-label">Choose a destination</p>
+          <p>Publish a full article on this site or link readers to reporting elsewhere.</p>
         </aside>
       </header>
       <AdminArticleForm article={article} />

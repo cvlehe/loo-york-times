@@ -59,12 +59,13 @@ This verification temporarily updates one published listing and creates two
 test users plus one review. It restores the listing and removes all temporary
 records before exiting.
 
-Task 15 adds static demonstration stories plus administrator-entered article
-links. Apply `supabase/migrations/20260930120000_create_articles.sql`, then use
-`/admin/articles/new` to add a required title and article URL with an optional
-public image URL. Article bodies remain at their supplied URLs; the app does not
-include an article editor. Verify public reads, administrator creation, ordinary
-user denial, and optional-image behavior against the configured project with:
+The journalism desk supports external links and articles published directly on
+the site. Apply `supabase/migrations/20260930120000_create_articles.sql` and
+`supabase/migrations/20261001091000_add_internal_articles.sql`, then use
+`/admin/articles/new` to choose the destination. Internal articles require a
+title and body and may include a public header-image URL; external articles
+require a title and article URL. Verify public reads, administrator creation,
+ordinary-user denial, and optional-image behavior against the configured project with:
 
 ```bash
 npm run verify:articles
