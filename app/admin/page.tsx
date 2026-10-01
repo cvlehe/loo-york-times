@@ -6,6 +6,7 @@ import {
   type AdminSubmission,
   type PublishedRestroomOption,
 } from "@/app/ui/admin-submission-review";
+import { AdminMaintenanceList } from "@/app/ui/admin-maintenance-list";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Admin" };
@@ -144,18 +145,12 @@ export default async function AdminPage() {
             <p>Approved and imported listings will appear here for maintenance.</p>
           </section>
         ) : (
-          <ul className="admin-maintenance-list">
-            {maintainedRestrooms.map((restroom) => (
-              <li key={restroom.id}>
-                <div>
-                  <h3>{restroom.name}</h3>
-                  <p>{restroom.address_text ?? "No street address"}</p>
-                  <small>{restroom.reviews.length} {restroom.reviews.length === 1 ? "review" : "reviews"}</small>
-                </div>
-                <Link className="button-link" href={`/admin/restrooms/${restroom.id}`}>Maintain listing</Link>
-              </li>
-            ))}
-          </ul>
+          <AdminMaintenanceList listings={maintainedRestrooms.map((restroom) => ({
+            addressText: restroom.address_text,
+            id: restroom.id,
+            name: restroom.name,
+            reviewCount: restroom.reviews.length,
+          }))} />
         )}
       </section>
     </main>
