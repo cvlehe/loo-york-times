@@ -1,13 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { AdminArticleForm } from "@/app/ui/admin-article-form";
 import { getViewer } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/server";
 
-export const metadata: Metadata = { title: "Add an article" };
+export const metadata: Metadata = { title: "Save an article" };
 
-export default async function NewArticlePage() {
+type NewArticlePageProps = {
+  searchParams: Promise<{ articleId?: string | string[] }>;
+};
+
+export default async function NewArticlePage({ searchParams }: NewArticlePageProps) {
   const viewer = await getViewer();
+  const requestedArticleId = (await searchParams).articleId;
+  const articleId = typeof requestedArticleId === "string" ? requestedArticleId : undefined;
+  const returnPath = articleId
+    ? `/admin/articles/new?articleId=${encodeURIComponent(articleId)}`
+    : "/admin/articles/new";
 
   if (!viewer.isAuthenticated) {
     return (
@@ -16,7 +27,7 @@ export default async function NewArticlePage() {
           <p className="kicker">Editorial desk</p>
           <h1>Administrator sign-in required</h1>
           <p>Sign in with an administrator account to add an article.</p>
-          <Link className="button-link" href="/login?next=%2Fadmin%2Farticles%2Fnew">Sign in</Link>
+          <Link className="button-link" href={`/login?next=${encodeURIComponent(returnPath)}`}>Sign in</Link>
         </section>
       </main>
     );
@@ -35,21 +46,39 @@ export default async function NewArticlePage() {
     );
   }
 
+  let article: { id: string; imageUrl: string | null; title: string; url: string } | undefined;
+  if (articleId) {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("articles")
+      .select("id, image_url, title, url")
+      .eq("id", articleId)
+      .maybeSingle();
+
+    if (error || !data) notFound();
+    article = {
+      id: data.id,
+      imageUrl: data.image_url,
+      title: data.title,
+      url: data.url,
+    };
+  }
+
   return (
     <main className="site-main admin-article-page" id="main-content">
       <Link className="detail-back-link text-link" href="/admin">← Back to admin</Link>
       <header className="admin-article-header">
         <div>
           <p className="kicker">Journalism desk</p>
-          <h1>Add an article</h1>
-          <p className="dek">Publish a titled link on the journalism page, with an optional image.</p>
+          <h1>{article ? "Edit article" : "Add an article"}</h1>
+          <p className="dek">{article ? "Update this article link and its optional image." : "Publish a titled link on the journalism page, with an optional image."}</p>
         </div>
         <aside className="submission-brief" aria-label="Article entry scope">
           <p className="brief-label">Link entry only</p>
           <p>The article body stays at the URL you provide. This demo does not include an article editor.</p>
         </aside>
       </header>
-      <AdminArticleForm />
+      <AdminArticleForm article={article} />
     </main>
   );
 }

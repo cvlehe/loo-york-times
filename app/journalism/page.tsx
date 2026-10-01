@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import { sampleArticles } from "@/lib/journalism";
+import { AdminArticleActions } from "@/app/ui/admin-article-actions";
+import { getViewer } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Journalism",
-  description: "Editorial article links and demonstration stories from The Loo York Times.",
+  description: "Editorial article links from The Loo York Times.",
 };
 
 type EditorialArticle = {
@@ -19,10 +19,13 @@ type EditorialArticle = {
 
 export default async function JournalismPage() {
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("articles")
-    .select("id, title, url, image_url, created_at")
-    .order("created_at", { ascending: false });
+  const [{ data, error }, viewer] = await Promise.all([
+    supabase
+      .from("articles")
+      .select("id, title, url, image_url, created_at")
+      .order("created_at", { ascending: false }),
+    getViewer(),
+  ]);
   const editorialArticles = (data ?? []) as EditorialArticle[];
 
   return (
@@ -32,18 +35,9 @@ export default async function JournalismPage() {
           <p className="kicker">The journalism desk</p>
           <h1>Reporting from the restroom beat</h1>
           <p className="dek">
-            Article links selected by the editorial desk, followed by sample
-            stories that demonstrate the reading experience.
+            Article links selected by the editorial desk.
           </p>
         </div>
-        <aside className="sample-disclosure" aria-label="Demonstration content notice">
-          <p className="sample-disclosure-label">Not published reporting</p>
-          <p>
-            Stories explicitly labeled <strong>Demo sample</strong> are fictional
-            demonstration material. They have not been reported or fact-checked
-            for publication.
-          </p>
-        </aside>
       </header>
 
       <section className="editorial-articles" aria-labelledby="editorial-articles-heading">
@@ -52,7 +46,7 @@ export default async function JournalismPage() {
           <p>Links open the referenced article</p>
         </div>
         {error ? (
-          <p className="data-error" role="status">Article links are temporarily unavailable. The sample edition remains below.</p>
+          <p className="data-error" role="status">Article links are temporarily unavailable. Please try again shortly.</p>
         ) : editorialArticles.length === 0 ? (
           <p className="editorial-articles-empty">No article links have been added yet.</p>
         ) : (
@@ -71,44 +65,13 @@ export default async function JournalismPage() {
                     <a className="article-read-link" href={article.url} rel="noreferrer">
                       Open article <span aria-hidden="true">↗</span>
                     </a>
+                    {viewer.isAdmin ? <AdminArticleActions articleId={article.id} /> : null}
                   </div>
                 </article>
               </li>
             ))}
           </ul>
         )}
-      </section>
-
-      <section className="article-index" aria-labelledby="sample-stories-heading">
-        <div className="article-index-heading">
-          <h2 id="sample-stories-heading">Sample stories</h2>
-          <p>{sampleArticles.length} articles · Static demonstration content</p>
-        </div>
-        <ol className="article-card-list">
-          {sampleArticles.map((article, index) => (
-            <li key={article.slug}>
-              <article className="article-card">
-                <p className="article-card-number" aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <div>
-                  <p className="article-section">{article.section} · Demo sample</p>
-                  <h3>
-                    <Link href={`/journalism/${article.slug}`}>{article.title}</Link>
-                  </h3>
-                  <p className="article-card-dek">{article.dek}</p>
-                  <p className="article-card-meta">
-                    <time dateTime={article.date}>{article.displayDate}</time>
-                    <span aria-hidden="true"> · </span>{article.readingTime}
-                  </p>
-                </div>
-                <Link className="article-read-link" href={`/journalism/${article.slug}`}>
-                  Read sample <span aria-hidden="true">→</span>
-                </Link>
-              </article>
-            </li>
-          ))}
-        </ol>
       </section>
     </main>
   );

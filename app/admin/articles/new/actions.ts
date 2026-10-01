@@ -10,6 +10,11 @@ export type ArticleFormState = {
   status: "idle" | "error" | "success";
 };
 
+export type DeleteArticleState = {
+  message: string;
+  status: "idle" | "error";
+};
+
 function readText(formData: FormData, name: string) {
   const value = formData.get(name);
   return typeof value === "string" ? value.trim() : "";
@@ -25,10 +30,28 @@ function normalizeWebUrl(value: string) {
   }
 }
 
-export async function createArticle(
+async function getAdminId() {
+  const supabase = await createClient();
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const adminId = claimsData?.claims?.sub;
+
+  if (!adminId) return { adminId: null, supabase };
+
+  const { data: role } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", adminId)
+    .eq("role", "admin")
+    .maybeSingle();
+
+  return { adminId: role?.role === "admin" ? adminId : null, supabase };
+}
+
+export async function saveArticle(
   _previousState: ArticleFormState,
   formData: FormData,
 ): Promise<ArticleFormState> {
+  const articleId = readText(formData, "articleId");
   const title = readText(formData, "title");
   const articleUrlInput = readText(formData, "url");
   const imageUrlInput = readText(formData, "imageUrl");
@@ -53,37 +76,53 @@ export async function createArticle(
     return { status: "error", message: "Enter a complete http:// or https:// image URL, or leave it blank." };
   }
 
-  const supabase = await createClient();
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const adminId = claimsData?.claims?.sub;
+  const { adminId, supabase } = await getAdminId();
   if (!adminId) {
-    return { status: "error", message: "Your sign-in has expired. Sign in again to continue." };
-  }
-
-  const { data: role } = await supabase
-    .from("user_roles")
-    .select("role")
-    .eq("user_id", adminId)
-    .eq("role", "admin")
-    .maybeSingle();
-  if (role?.role !== "admin") {
     return { status: "error", message: "Administrator access is required." };
   }
 
-  const { data, error } = await supabase
-    .from("articles")
-    .insert({ created_by: adminId, image_url: imageUrl, title, url })
-    .select("id")
-    .single();
+  const articleData = { image_url: imageUrl, title, url };
+  const query = articleId
+    ? supabase.from("articles").update(articleData).eq("id", articleId)
+    : supabase.from("articles").insert({ ...articleData, created_by: adminId });
+  const { data, error } = await query.select("id").single();
 
   if (error || !data) {
-    return { status: "error", message: "The article could not be added. Check the details and try again." };
+    return {
+      status: "error",
+      message: `The article could not be ${articleId ? "updated" : "saved"}. Check the details and try again.`,
+    };
   }
 
   revalidatePath("/journalism");
   return {
     articleId: data.id,
     status: "success",
-    message: "Article added. It now appears on the public journalism page.",
+    message: articleId
+      ? "Article updated. The changes now appear on the public journalism page."
+      : "Article saved. It now appears on the public journalism page.",
   };
+}
+
+export async function deleteArticle(
+  _previousState: DeleteArticleState,
+  formData: FormData,
+): Promise<DeleteArticleState> {
+  const articleId = readText(formData, "articleId");
+  if (!articleId) {
+    return { status: "error", message: "The article could not be identified." };
+  }
+
+  const { adminId, supabase } = await getAdminId();
+  if (!adminId) {
+    return { status: "error", message: "Administrator access is required." };
+  }
+
+  const { error } = await supabase.from("articles").delete().eq("id", articleId);
+  if (error) {
+    return { status: "error", message: "The article could not be deleted. Try again." };
+  }
+
+  revalidatePath("/journalism");
+  return { status: "idle", message: "" };
 }

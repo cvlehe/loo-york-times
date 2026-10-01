@@ -5,7 +5,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 import {
-  createArticle,
+  saveArticle,
   type ArticleFormState,
 } from "@/app/admin/articles/new/actions";
 
@@ -13,25 +13,36 @@ const initialState: ArticleFormState = { message: "", status: "idle" };
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  return <button disabled={pending} type="submit">{pending ? "Adding article..." : "Add article"}</button>;
+  return <button disabled={pending} type="submit">{pending ? "Saving..." : "Save"}</button>;
 }
 
-export function AdminArticleForm() {
-  const [state, formAction] = useActionState(createArticle, initialState);
+type AdminArticleFormProps = {
+  article?: {
+    id: string;
+    imageUrl: string | null;
+    title: string;
+    url: string;
+  };
+};
+
+export function AdminArticleForm({ article }: AdminArticleFormProps) {
+  const [state, formAction] = useActionState(saveArticle, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state.articleId) formRef.current?.reset();
-  }, [state.articleId]);
+    if (state.articleId && !article) formRef.current?.reset();
+  }, [article, state.articleId]);
 
   return (
     <form action={formAction} className="admin-article-form" ref={formRef}>
+      {article ? <input name="articleId" type="hidden" value={article.id} /> : null}
       <label htmlFor="article-title">Title <span aria-hidden="true">*</span></label>
-      <input id="article-title" maxLength={200} name="title" required type="text" />
+      <input defaultValue={article?.title} id="article-title" maxLength={200} name="title" required type="text" />
 
       <label htmlFor="article-url">Article URL <span aria-hidden="true">*</span></label>
       <input
         aria-describedby="article-url-help"
+        defaultValue={article?.url}
         id="article-url"
         maxLength={2_048}
         name="url"
@@ -44,6 +55,7 @@ export function AdminArticleForm() {
       <label htmlFor="article-image-url">Image URL <span>(optional)</span></label>
       <input
         aria-describedby="article-image-help"
+        defaultValue={article?.imageUrl ?? ""}
         id="article-image-url"
         maxLength={2_048}
         name="imageUrl"
