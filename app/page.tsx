@@ -49,10 +49,9 @@ export default async function Home() {
             to account.
           </p>
           <div className="hero-actions">
-            <a className="text-link" href="#restroom-map">
-              Explore the restroom map <span aria-hidden="true">↓</span>
-            </a>
-            <Link className="text-link" href="/submissions/new">Submit a restroom</Link>
+            <Link className="button-link hero-submit-button" href="/submissions/new">
+              Submit a restroom <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
 

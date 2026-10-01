@@ -254,6 +254,21 @@ button, input, textarea { font: inherit; }
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; }
 
+.button-link.hero-submit-button {
+  gap: 0.55rem;
+  padding: 0.9rem 1.2rem;
+  border-color: var(--teal-dark);
+  background: var(--teal-dark);
+  box-shadow: 3px 3px 0 var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.button-link.hero-submit-button:hover {
+  background: var(--teal);
+  box-shadow: 1px 1px 0 var(--ink);
+  transform: translate(2px, 2px);
+}
+
 .hero-brief {
   display: flex;
   align-items: center;
