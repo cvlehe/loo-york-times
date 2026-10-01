@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, UnifrakturCook } from "next/font/google";
 
 import { SiteHeader } from "@/app/ui/site-header";
 import { getViewer } from "@/lib/auth";
@@ -8,6 +8,11 @@ import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const mastheadFont = UnifrakturCook({
+  variable: "--font-masthead",
+  subsets: ["latin"],
+  weight: "700",
+});
 
 export const metadata: Metadata = {
   title: { default: "The Loo York Times", template: "%s | The Loo York Times" },
@@ -18,7 +23,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const viewer = await getViewer();
 
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${mastheadFont.variable}`}>
       <body>
         <SiteHeader viewer={viewer} />
         {children}

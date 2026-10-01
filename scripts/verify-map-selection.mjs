@@ -6,13 +6,13 @@ const homePage = await readFile(new URL("../app/page.tsx", import.meta.url), "ut
 
 assert.match(
   component,
-  /markerElement\.addEventListener\("click", \(\) => selectRestroom\(restroom\)\)/,
-  "marker clicks must use the same selection path as list clicks",
+  /markerElement\.addEventListener\("click", \(\) => selectRestroom\(restroom, true\)\)/,
+  "marker clicks must select the restroom and request list scrolling",
 );
 assert.match(
   component,
-  /scrollIntoView/,
-  "selecting a restroom must scroll its list item into view",
+  /scrollIntoView\(\{ block: "start" \}\)/,
+  "selecting a restroom must scroll its list item to the top of the list",
 );
 assert.match(
   component,

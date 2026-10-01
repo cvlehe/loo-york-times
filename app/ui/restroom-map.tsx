@@ -38,7 +38,7 @@ function findMatches(restrooms: PublicRestroom[], query: string) {
   const normalizedQuery = query.trim().toLocaleLowerCase();
   if (!normalizedQuery) return restrooms;
   return restrooms.filter((restroom) =>
-    [restroom.name, restroom.neighborhood]
+    [restroom.name, restroom.address_text, restroom.neighborhood, restroom.borough]
       .filter(Boolean)
       .some((value) => value?.toLocaleLowerCase().includes(normalizedQuery)),
   );
@@ -116,6 +116,7 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
       popupRef.current = new maplibregl.Popup({
         className: "restroom-popup",
         closeOnClick: false,
+        focusAfterOpen: false,
         maxWidth: "15rem",
         offset: 18,
       });
@@ -126,7 +127,7 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
           markerElement.className = "restroom-marker";
           markerElement.type = "button";
           markerElement.setAttribute("aria-label", `Select ${restroom.name}`);
-          markerElement.addEventListener("click", () => selectRestroom(restroom));
+          markerElement.addEventListener("click", () => selectRestroom(restroom, true));
           markers.set(restroom.id, new maplibregl.Marker({ element: markerElement, anchor: "bottom" })
             .setLngLat([restroom.longitude, restroom.latitude]).addTo(map));
         });
@@ -168,7 +169,7 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
     mapRef.current?.flyTo({ center: [activeRestroom.longitude, activeRestroom.latitude], zoom: Math.max(mapRef.current.getZoom(), 14), essential: true });
   }, [activeId, matchingRestrooms]);
 
-  function selectRestroom(restroom: PublicRestroom) {
+  function selectRestroom(restroom: PublicRestroom, scrollListItem = false) {
     setActiveId(restroom.id);
     const map = mapRef.current;
     const popup = popupRef.current;
@@ -186,9 +187,11 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
       });
     }
 
-    requestAnimationFrame(() => {
-      document.getElementById(`restroom-${restroom.id}`)?.scrollIntoView({ block: "nearest" });
-    });
+    if (scrollListItem) {
+      requestAnimationFrame(() => {
+        document.getElementById(`restroom-${restroom.id}`)?.scrollIntoView({ block: "start" });
+      });
+    }
   }
 
   function updateQuery(nextQuery: string) {
@@ -237,9 +240,9 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
   return (
     <div className="map-workspace">
       <div className="map-toolbar">
-        <label htmlFor="restroom-search">Search by restroom name or neighborhood</label>
+        <label htmlFor="restroom-search">Search by your location or an address, neighborhood, or borough</label>
         <div className="search-controls">
-          <input id="restroom-search" onChange={(event) => updateQuery(event.target.value)} placeholder="Try Bryant Park or Flushing" type="search" value={query} />
+          <input id="restroom-search" onChange={(event) => updateQuery(event.target.value)} placeholder="Try an address, Astoria, or Queens" type="search" value={query} />
           {query ? <button className="clear-search" onClick={() => updateQuery("")} type="button">Clear</button> : null}
         </div>
         <div className="location-controls">

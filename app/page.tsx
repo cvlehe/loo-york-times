@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { RestroomMap, type PublicRestroom } from "@/app/ui/restroom-map";
@@ -65,14 +64,6 @@ export default async function Home() {
         </div>
 
         <aside className="hero-brief" aria-label="About this project">
-          <Image
-            alt="A pigeon reading The Loo York Times on a toilet"
-            className="hero-mark"
-            height={144}
-            priority
-            src="/logo.png"
-            width={144}
-          />
           <div>
             <p className="brief-label">The brief</p>
             <p>
@@ -89,7 +80,7 @@ export default async function Home() {
             <p className="kicker">The restroom desk</p>
             <h2 id="map-heading">Find a restroom</h2>
           </div>
-          <p className="edition-note">Published locations only · Select a marker or a listing to keep them in sync</p>
+          <p className="edition-note">Published locations only</p>
         </div>
 
         {listingsError ? (
