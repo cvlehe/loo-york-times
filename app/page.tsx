@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { RestroomMap, type PublicRestroom } from "@/app/ui/restroom-map";
@@ -16,7 +15,7 @@ export default async function Home() {
     for (let start = 0; ; start += pageSize) {
       const { data, error } = await supabase
         .from("restrooms")
-        .select("id, name, address_text, borough, latitude, longitude, neighborhood, reviews (rating)")
+        .select("id, name, address_text, borough, latitude, longitude, neighborhood, hours_text, source_status, source_availability, source_accessibility, changing_station_notes, reviews (rating)")
         .eq("publication_status", "published")
         .not("latitude", "is", null)
         .not("longitude", "is", null)
@@ -48,7 +47,7 @@ export default async function Home() {
 
   return (
     <main id="main-content" className="site-main">
-      <section className="hero-grid" aria-labelledby="home-heading">
+      <section aria-labelledby="home-heading">
         <div className="hero-copy">
           <p className="kicker">A public-service guide to New York City</p>
           <h1 id="home-heading">
@@ -68,23 +67,6 @@ export default async function Home() {
             </Link>
           </div>
         </div>
-
-        <aside className="hero-brief" aria-label="About this project">
-          <div>
-            <Image
-              alt=""
-              className="hero-brief-mark"
-              height={72}
-              src="/loo-york-times-logo-transparent.png"
-              width={72}
-            />
-            <p className="brief-label">The brief</p>
-            <p>
-              Reliable information for a basic city need. Listings are reviewed
-              before they appear here.
-            </p>
-          </div>
-        </aside>
       </section>
 
       <section className="map-section" id="restroom-map" aria-labelledby="map-heading">

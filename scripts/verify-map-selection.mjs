@@ -7,17 +7,32 @@ const homePage = await readFile(new URL("../app/page.tsx", import.meta.url), "ut
 assert.match(
   component,
   /markerElement\.addEventListener\("click", \(\) => selectRestroom\(restroom, true\)\)/,
-  "marker clicks must select the restroom and request list scrolling",
+  "marker clicks must select the restroom",
 );
 assert.match(
   component,
-  /scrollIntoView\(\{ block: "start" \}\)/,
-  "selecting a restroom must scroll its list item to the top of the list",
+  /if \(scrollListItem && window\.matchMedia\("\(min-width: 1000px\)"\)\.matches\)/,
+  "marker selection must only scroll the list in the side-by-side desktop layout",
+);
+assert.match(
+  component,
+  /list\.scrollTo\(/,
+  "desktop marker selection must scroll the list panel",
+);
+assert.doesNotMatch(
+  component,
+  /scrollIntoView\(/,
+  "marker selection must not scroll the page",
 );
 assert.match(
   component,
   /new maplibregl\.Popup/,
   "selecting a restroom must show a map popup",
+);
+assert.match(
+  component,
+  /detailsLink\.href = `\/restrooms\/\$\{restroom\.id\}`/,
+  "the map popup must link to the selected restroom's detail page",
 );
 assert.match(
   component,
