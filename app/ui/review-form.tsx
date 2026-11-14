@@ -2,6 +2,8 @@
 
 import { useActionState } from "react";
 
+import { trackEvent } from "@/lib/analytics";
+
 import { saveReview, type ReviewFormState } from "@/app/restrooms/[id]/actions";
 
 type EditableReview = {
@@ -19,7 +21,11 @@ export function ReviewForm({
   restroomId: string;
 }) {
   const saveReviewForRestroom = saveReview.bind(null, restroomId);
-  const [state, formAction, pending] = useActionState(saveReviewForRestroom, initialState);
+  const [state, formAction, pending] = useActionState(async (previous: ReviewFormState, data: FormData) => {
+    const result = await saveReviewForRestroom(previous, data);
+    trackEvent("form_result", { form: "review", status: result.status === "success" ? "success" : "error" });
+    return result;
+  }, initialState);
 
   return (
     <form action={formAction} className="review-form">

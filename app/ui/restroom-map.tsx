@@ -1,5 +1,7 @@
 "use client";
 
+import { trackEvent } from "@/lib/analytics";
+
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -116,6 +118,31 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
     : matchingRestrooms[0]?.id ?? null;
   const filtersActive = openOnly || accessibility !== "any" || changingOnly;
 
+  const previousSearch = useRef("");
+  const previousFilters = useRef("false:any:false");
+  useEffect(() => {
+    if (mapState !== "loading") trackEvent("map_status", { status: mapState });
+  }, [mapState]);
+  useEffect(() => {
+    if (locationState !== "idle" && locationState !== "locating") {
+      trackEvent("location_result", { status: locationState });
+    }
+  }, [locationState]);
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      if (query !== previousSearch.current) {
+        previousSearch.current = query;
+        trackEvent("directory_searched", { has_query: Boolean(query.trim()), result_count: matchingRestrooms.length });
+      }
+      const filters = `${openOnly}:${accessibility}:${changingOnly}`;
+      if (filters !== previousFilters.current) {
+        previousFilters.current = filters;
+        trackEvent("directory_filtered", { open_only: openOnly, accessibility, changing_only: changingOnly, result_count: matchingRestrooms.length });
+      }
+    }, 600);
+    return () => window.clearTimeout(timer);
+  }, [query, openOnly, accessibility, changingOnly, matchingRestrooms.length]);
+
   useEffect(() => {
     if (!openOnly) return;
     const timer = window.setInterval(() => setNow(new Date()), 30_000);
@@ -201,6 +228,7 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
   }, [restrooms, selectedId]);
 
   function selectRestroom(restroom: PublicRestroom, scrollListItem = false) {
+    trackEvent("restroom_selected", { source: scrollListItem ? "map" : "list" });
     setActiveId(restroom.id);
     const map = mapRef.current;
     const popup = popupRef.current;
@@ -237,6 +265,7 @@ export function RestroomMap({ restrooms }: RestroomMapProps) {
   }
 
   function locateUser() {
+    trackEvent("location_requested", {});
     if (!navigator.geolocation) {
       setLocationState("unavailable");
       return;

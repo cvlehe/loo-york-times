@@ -15,11 +15,13 @@
     "verify:maintenance": "node scripts/verify-maintenance.mjs",
     "verify:articles": "node scripts/verify-articles.mjs",
     "verify:map-selection": "node scripts/verify-map-selection.mjs",
-    "verify:demo": "node scripts/verify-demo.mjs"
+    "verify:demo": "node scripts/verify-demo.mjs",
+    "test:analytics": "node --test lib/analytics.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.117.2",
+    "@vercel/analytics": "^2.0.1",
     "csv-parse": "^7.0.3",
     "maplibre-gl": "^6.11.2",
     "next": "16.3.6",

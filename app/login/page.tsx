@@ -1,5 +1,7 @@
 "use client";
 
+import { trackEvent } from "@/lib/analytics";
+
 import Link from "next/link";
 import { type FormEvent, useState } from "react";
 
@@ -27,6 +29,7 @@ export default function LoginPage() {
       options: { emailRedirectTo: callback.toString() },
     });
 
+    trackEvent("form_result", { form: "login", status: error ? "error" : "success" });
     setMessage(
       error
         ? error.message

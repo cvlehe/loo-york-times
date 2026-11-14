@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { SiteAnalytics } from "@/app/ui/site-analytics";
 import { SiteHeader } from "@/app/ui/site-header";
 import { getViewer } from "@/lib/auth";
 
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <SiteHeader viewer={viewer} />
+        <SiteAnalytics />
         {children}
         <footer className="site-footer">
           <div className="page-width footer-inner">
