@@ -1,5 +1,7 @@
 "use client";
 
+import { trackEvent } from "@/lib/analytics";
+
 import Link from "next/link";
 import { useActionState, useEffect, useRef } from "react";
 
@@ -12,7 +14,11 @@ import { SubmissionLocationPicker } from "@/app/ui/submission-location-picker";
 const initialState: SubmissionFormState = { message: "", status: "idle" };
 
 export function SubmissionForm() {
-  const [state, formAction, pending] = useActionState(createSubmission, initialState);
+  const [state, formAction, pending] = useActionState(async (previous: SubmissionFormState, data: FormData) => {
+    const result = await createSubmission(previous, data);
+    trackEvent("form_result", { form: "submission", status: result.status === "success" ? "success" : "error" });
+    return result;
+  }, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
