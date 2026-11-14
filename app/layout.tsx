@@ -22,13 +22,13 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <SiteHeader viewer={viewer} />
-        <SiteAnalytics />
         {children}
         <footer className="site-footer">
           <div className="page-width footer-inner">
             <p className="footer-name">The Loo York Times</p>
             <p>A working demonstration for a more usable city.</p>
           </div>
+          <div className="page-width"><SiteAnalytics /></div>
         </footer>
       </body>
     </html>

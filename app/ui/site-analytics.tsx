@@ -1,18 +1,38 @@
 "use client";
 
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect, useSyncExternalStore } from "react";
 
-import { isTrackedPath, sanitizeAnalyticsEvent, trackEvent } from "@/lib/analytics";
+import { googleConsent, googleMeasurementId, hasGoogleAnalytics, setGoogleConsent, initializeGoogleAnalytics, isTrackedPath, sanitizeAnalyticsEvent, trackEvent } from "@/lib/analytics";
 
 const subscribe = () => () => {};
 const canTrack = () => navigator.doNotTrack !== "1" &&
   !(navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl;
 
+const subscribeConsent = (callback: () => void) => {
+  window.addEventListener("loo-analytics-consent", callback);
+  window.addEventListener("storage", callback);
+  return () => {
+    window.removeEventListener("loo-analytics-consent", callback);
+    window.removeEventListener("storage", callback);
+  };
+};
+
 export function SiteAnalytics() {
+  const googleEnabled = useSyncExternalStore(subscribeConsent, googleConsent, () => false);
   const enabled = useSyncExternalStore(subscribe, canTrack, () => false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const allowed = enabled && googleEnabled && isTrackedPath(pathname);
+    if (hasGoogleAnalytics) {
+      (window as unknown as Record<string, unknown>)[`ga-disable-${googleMeasurementId}`] = !allowed;
+      window.gtag?.("consent", "update", { analytics_storage: allowed ? "granted" : "denied" });
+    }
+    if (allowed) initializeGoogleAnalytics();
+  }, [enabled, googleEnabled, pathname]);
 
   useEffect(() => {
     const started = new WeakSet<HTMLFormElement>();
@@ -65,5 +85,18 @@ export function SiteAnalytics() {
     };
   }, [pathname]);
 
-  return enabled ? <Analytics beforeSend={sanitizeAnalyticsEvent} /> : null;
+  return enabled ? <>
+    <Analytics beforeSend={sanitizeAnalyticsEvent} />
+    {hasGoogleAnalytics && googleEnabled && isTrackedPath(pathname) ? <Script
+      id="google-custom-events"
+      src={`https://www.googletagmanager.com/gtag/js?id=${googleMeasurementId}`}
+      strategy="afterInteractive"
+    /> : null}
+    {hasGoogleAnalytics && isTrackedPath(pathname) ? <div className="analytics-preferences">
+      <p>Optional usage analytics helps us improve the site. Search text and form contents are excluded.</p>
+      <button type="button" onClick={() => setGoogleConsent(!googleEnabled)}>
+        {googleEnabled ? "Turn off usage analytics" : "Allow usage analytics"}
+      </button>
+    </div> : null}
+  </> : null;
 }

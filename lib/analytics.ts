@@ -1,4 +1,4 @@
-import { track, type BeforeSendEvent } from "@vercel/analytics";
+import { type BeforeSendEvent } from "@vercel/analytics";
 
 export type AnalyticsEvents = {
   navigation_clicked: { destination: string };
@@ -22,13 +22,64 @@ export function isTrackedPath(path: string) {
     /^\/restrooms\/[^/]+$/.test(path) || /^\/journalism(?:\/[^/]+(?:\/[^/]+)?)?$/.test(path);
 }
 
-/** A closed event schema: never pass form contents, search text, or user identity. */
+export const googleMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+export const hasGoogleAnalytics = Boolean(googleMeasurementId && /^G-[A-Z0-9]+$/.test(googleMeasurementId));
+
+declare global {
+  interface Window {
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
+    looGoogleAnalyticsInitialized?: boolean;
+  }
+}
+
+const consentKey = "loo-usage-analytics";
+export function googleConsent() {
+  try { return window.localStorage.getItem(consentKey) === "granted"; } catch { return false; }
+}
+export function setGoogleConsent(granted: boolean) {
+  try { window.localStorage.setItem(consentKey, granted ? "granted" : "denied"); } catch { return; }
+  (window as unknown as Record<string, unknown>)[`ga-disable-${googleMeasurementId}`] = !granted;
+  window.gtag?.("consent", "update", { analytics_storage: granted ? "granted" : "denied" });
+  window.dispatchEvent(new Event("loo-analytics-consent"));
+}
+
+/** Configure once, after opt-in and before Google consumes queued events. */
+export function initializeGoogleAnalytics() {
+  if (!hasGoogleAnalytics || typeof window === "undefined" || !googleConsent() || window.looGoogleAnalyticsInitialized) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer!.push(arguments); };
+  window.gtag("consent", "default", {
+    analytics_storage: "granted", ad_storage: "denied",
+    ad_user_data: "denied", ad_personalization: "denied",
+  });
+  window.gtag("js", new Date());
+  window.gtag("config", googleMeasurementId, {
+    send_page_view: false,
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+    page_location: window.location.origin + window.location.pathname,
+    page_referrer: "",
+    page_title: "The Loo York Times",
+    ignore_referrer: true,
+  });
+  window.looGoogleAnalyticsInitialized = true;
+}
+
+/** Custom events go only to GA4; Vercel remains on its free page-view tier. */
 export function trackEvent<K extends keyof AnalyticsEvents>(name: K, properties: AnalyticsEvents[K]) {
-  if (typeof window === "undefined" || !isTrackedPath(window.location.pathname) ||
+  if (typeof window === "undefined" || !hasGoogleAnalytics || !googleConsent() || !isTrackedPath(window.location.pathname) ||
       navigator.doNotTrack === "1" ||
       (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl) return;
   try {
-    track(name, properties);
+    initializeGoogleAnalytics();
+    window.gtag?.("event", name, {
+      ...properties,
+      send_to: googleMeasurementId,
+      page_location: window.location.origin + window.location.pathname,
+      page_referrer: "",
+      page_title: "The Loo York Times",
+    });
   } catch {
     // Analytics must never prevent navigation or a successful contribution.
   }

@@ -3,7 +3,7 @@
 A Next.js demonstration that helps people find eligible New York City public
 restrooms, rate them, and submit locations for editorial approval.
 
-Product analytics tracks page views and key interactions through Vercel Web Analytics.
+Product analytics uses free Vercel page views and optional Google Analytics 4 custom events.
 See [`docs/analytics.md`](docs/analytics.md) for activation, the event dictionary,
 privacy controls, and verification.
 

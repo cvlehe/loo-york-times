@@ -1001,3 +1001,7 @@ button, input, textarea { font: inherit; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
+
+.analytics-preferences { padding: 0 0 1.5rem; font-size: .85rem; }
+.analytics-preferences p { margin: 0 0 .5rem; }
+.analytics-preferences button { background: transparent; border: 0; padding: 0; text-decoration: underline; cursor: pointer; color: inherit; font: inherit; }
